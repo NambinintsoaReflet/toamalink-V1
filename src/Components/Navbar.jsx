@@ -7,8 +7,8 @@ const Navbar = ({ handleShowModal }) => {
   const { toggle } = useContext(MenuContext);
 
   // 🔁 Exemple simulé : remplace ceci par ta logique réelle d'authentification
-  // const user = null; // ou bien { name: "John Doe" } si connecté
-  const user = { name: "John Doe" }; // Simule un utilisateur connecté
+  const user = null; // ou bien { name: "John Doe" } si connecté
+  // const user = { name: "John Doe" }; // Simule un utilisateur connecté
   return (
     // Correction ici : 'class' a été remplacé par 'className'
     <div className="flex justify-between items-center p-4 pt-0 pb-0 bg-white fixed top-0 left-0 right-0 z-50 shadow-md">
@@ -20,12 +20,12 @@ const Navbar = ({ handleShowModal }) => {
         {!user ? (
           <>
             <button
-              className="p-1 pl-3 pr-3 bg-amber-400 rounded-sm text-amber-50"
+              className="p-1 pl-3 pr-3 bg-amber-400 cursor-pointer rounded-sm text-amber-50"
               onClick={handleShowModal}
             >
               Login
             </button>
-            <button className="p-1 pl-3 pr-3 bg-blue-400 rounded-sm text-amber-50">
+            <button className="p-1 pl-3 pr-3 bg-blue-400 cursor-pointer rounded-sm text-amber-50">
               Sign in
             </button>
           </>

@@ -9,6 +9,7 @@ import { GoCommentDiscussion } from "react-icons/go";
 import { FaUserFriends } from "react-icons/fa";
 import { SiHelpscout } from "react-icons/si";
 import { IoIosSettings } from "react-icons/io";
+import LoginModal from "../Components/Modals/LoginModal";
 
 const Layout = () => {
   const { open, setOpen } = useContext(MenuContext);
@@ -76,10 +77,11 @@ const Layout = () => {
             </ul>
           </aside>
           <main className={`p-4 ${user ? "lg:ml-60" : ""} `} onClick={() => setOpen(false)}>
-            <Outlet />
+            <Outlet/>
           </main>
         </div>
       </div>
+         {showModal && <LoginModal handleShowModal={handleShowModal} />}
       {/* <Footer /> */}
     </>
   );
