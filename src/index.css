@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.bg-header {
+  background-image: url('/src/assets/tamatave.jpg');
+}
