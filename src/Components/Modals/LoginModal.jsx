@@ -14,7 +14,7 @@ const LoginModal = ({ handleShowModal }) => {
           >
             <IoMdClose />
           </button>
-          <div class="flex min-h-full flex-col justify-center px-6 lg:px-8">
+          <div class="flex min-h-full flex-col justify-center lg:px-8">
             <div class="sm:mx-auto sm:w-full sm:max-w-sm">
               <img src={logo} alt="Your Company" class="mx-auto h-20 w-20" />
               <h2 class="mt-2 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
@@ -54,7 +54,7 @@ const LoginModal = ({ handleShowModal }) => {
                     <div class="text-sm">
                       <a
                         href="#"
-                        class="font-semibold text-indigo-600 hover:text-indigo-500"
+                        class="font-semibold text-cyan-900 hover:text-indigo-500"
                       >
                         Forgot password?
                       </a>
@@ -75,7 +75,7 @@ const LoginModal = ({ handleShowModal }) => {
                 <div>
                   <button
                     type="submit"
-                    class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    class="flex w-full justify-center rounded-md bg-cyan-900 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-cyan-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     Login
                   </button>
@@ -86,7 +86,7 @@ const LoginModal = ({ handleShowModal }) => {
                 Not a member?
                 <a
                   href="#"
-                  class="font-semibold text-indigo-600 hover:text-indigo-500"
+                  class="font-semibold text-cyan-900 hover:text-cyan-500"
                 >
                   Create a new account
                 </a>

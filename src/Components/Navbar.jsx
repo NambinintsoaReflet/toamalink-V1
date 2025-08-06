@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import logoPng from "../assets/logo-png.png"; // Adjust the path as necessary
 import { MenuContext } from "../Context/MenuContext/MenuContext";
-import { FaBars } from 'react-icons/fa'; // N'oubliez pas d'importer l'icône si vous l'utilisez
+import { FaBars } from "react-icons/fa"; // N'oubliez pas d'importer l'icône si vous l'utilisez
+import { Link } from "react-router-dom";
 
 const Navbar = ({ handleShowModal }) => {
   const { toggle } = useContext(MenuContext);
@@ -12,19 +13,18 @@ const Navbar = ({ handleShowModal }) => {
   return (
     // Correction ici : 'class' a été remplacé par 'className'
     <div className="flex justify-between items-center p-4 pt-0 pb-0 bg-white fixed top-0 left-0 right-0 z-50 shadow-md">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center">
         <img src={logoPng} alt="" className="w-15 h-15" />
-        ToamaLink
+        <h2 className="text-lg text-cyan-900">ToamaLink</h2>
       </div>
-      <div className="flex items-center justify-center space-x-4">
+      <div className="flex items-center justify-center space-x-3">
         {!user ? (
           <>
-            <button
+            <Link to={"/login"}
               className="p-1 pl-3 pr-3 bg-amber-400 cursor-pointer rounded-sm text-amber-50"
-              onClick={handleShowModal}
             >
               Login
-            </button>
+            </Link>
             <button className="p-1 pl-3 pr-3 bg-blue-400 cursor-pointer rounded-sm text-amber-50">
               Sign in
             </button>
@@ -33,7 +33,10 @@ const Navbar = ({ handleShowModal }) => {
           <div className="text-gray-800 font-medium">{user.name}</div>
         )}
 
-        <div onClick={toggle} className={`p-0.5 lg:hidden ${user ? "" : "hidden"}`}>
+        <div
+          onClick={toggle}
+          className={`p-0.5 lg:hidden ${user ? "" : "hidden"}`}
+        >
           {/* Assurez-vous d'importer FaBars si vous l'utilisez */}
           <FaBars className="cursor-pointer" />
         </div>

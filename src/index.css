@@ -3,3 +3,10 @@
 .bg-header {
   background-image: url('/src/assets/tamatave.jpg');
 }
+
+.bg-login {
+  background-image: url('/src/assets/tamatave-ville.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

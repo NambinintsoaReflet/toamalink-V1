@@ -47,8 +47,8 @@ const Layout = () => {
     console.log("Modal toggled");
   };
 
-  // const user = null; // Simule un utilisateur non connecté, remplacez par votre logique d'authentification
-  const user = { name: "John Doe" }; // Simule un utilisateur connecté
+  const user = null; // Simule un utilisateur non connecté, remplacez par votre logique d'authentification
+  // const user = { name: "John Doe" }; // Simule un utilisateur connecté
 
   return (
     <>
@@ -76,7 +76,7 @@ const Layout = () => {
               ))}
             </ul>
           </aside>
-          <main className={`p-4 ${user ? "lg:ml-60" : ""} `} onClick={() => setOpen(false)}>
+          <main className={`p-4 w-full ${user ? "lg:ml-60" : ""} `} onClick={() => setOpen(false)}>
             <Outlet/>
           </main>
         </div>
