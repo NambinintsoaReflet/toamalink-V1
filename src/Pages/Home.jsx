@@ -8,7 +8,7 @@ const Home = () => {
     <>
       <div className="h-90 mt-1 w-full p-8 rounded-2xl bg-header bg-cover bg-center flex items-center justify-center">
         <div className="flex flex-col items-center p-4 bg-gray-600/30 rounded-2xl text-white text-center">
-          <h1 className="text-xl">Connect, Share, and Thrive in Toamasina</h1>
+          <h1 className="text-2xl">Connect, Share, and Thrive in Toamasina</h1>
           <p className="text-base mt-2 max-w-2xl">
             Join a vibrant community of expatriates in Toamasina. Discover local
             events, share experiences, and access valuable resources to make

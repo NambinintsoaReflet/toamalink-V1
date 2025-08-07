@@ -1,25 +1,36 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useState } from 'react'; // Ajout de l'import de useState
 import "./App.css";
 import Layout from "./Pages/Layout";
 import MenuContextProvider from "./Context/MenuContext/Provider";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
+import Signin from "./Pages/SignIn";
+import ProtectedRoute from "./Components/ProtectedRoute";
+
+// Importez votre composant ProtectedRoute
+
 
 function App() {
+  // Simulez l'état d'authentification, remplacez par votre logique de contexte
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
     <>
       <BrowserRouter>
-        <MenuContextProvider >
+        <MenuContextProvider>
           <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
+            {/* Routes publiques */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signin" element={<Signin />} />
 
-              {/* <Route index element={<Home />} /> */}
-              <Route path="/login" element={<Login />} />
-              {/* <Route path="/signin" element={<Signin />} /> */}
-              {/* <Route path="/events/:id" element={<EventDetail />} /> */}
-              {/* <Route path="/acceuil" element={<Acceuil />} /> */}
-              {/* </Route> */}
+            {/* C'est ici que la route est protégée */}
+            {/* Le composant ProtectedRoute vérifie l'authentification */}
+            <Route element={<ProtectedRoute isAuth={isAuthenticated} />}>
+              {/* Ces routes ne seront accessibles que si l'utilisateur est authentifié */}
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+              </Route>
             </Route>
           </Routes>
         </MenuContextProvider>

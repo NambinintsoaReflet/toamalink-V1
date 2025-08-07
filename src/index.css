@@ -5,8 +5,9 @@
 }
 
 .bg-login {
-  background-image: url('/src/assets/tamatave-ville.png');
+  background-image: url('/src/assets/tamatave.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  border-radius: 0.5rem 0 0 0.5rem;
 }

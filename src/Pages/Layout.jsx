@@ -17,27 +17,27 @@ const Layout = () => {
   const pathname = location.pathname; // On accède à la propriété pathname
 
   const navItems = [
-    { href: "/", label: "Home", icon: <AiOutlineHome className="mr-2" /> },
+    { href: "/", label: "Home", icon: <AiOutlineHome className="mr-2 text-xl" /> },
     {
       href: "/events",
       label: "Events",
-      icon: <MdOutlineEvent className="mr-2" />,
+      icon: <MdOutlineEvent className="mr-2 text-xl" />,
     },
     {
       href: "/messages",
       label: "Messages",
-      icon: <GoCommentDiscussion className="mr-2" />,
+      icon: <GoCommentDiscussion className="mr-2 text-xl" />,
     },
     {
       href: "/expats",
       label: "Expats",
-      icon: <FaUserFriends className="mr-2" />,
+      icon: <FaUserFriends className="mr-2 text-xl" />,
     },
-    { href: "/about", label: "About", icon: <SiHelpscout className="mr-2" /> },
+    { href: "/about", label: "About", icon: <SiHelpscout className="mr-2 text-xl" /> },
     {
       href: "/setting",
       label: "Settings",
-      icon: <IoIosSettings className="mr-2" />,
+      icon: <IoIosSettings className="mr-2 text-xl" />,
     },
   ];
 
@@ -52,7 +52,7 @@ const Layout = () => {
 
   return (
     <>
-      <Navbar handleShowModal={handleShowModal} />
+      {/* <Navbar handleShowModal={handleShowModal} /> */}
       <div className="bg-gray-100 min-h-screen lg:mt-12 mt-14">
         <div className="flex">
           <aside
