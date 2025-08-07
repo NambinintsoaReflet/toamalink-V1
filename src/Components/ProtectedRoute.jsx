@@ -8,8 +8,6 @@ const ProtectedRoute = ({ isAuth }) => {
     return <Outlet />;
   }
 
-  // Sinon, on le redirige vers la page de connexion
-  // L'attribut 'replace' évite de garder la page protégée dans l'historique
   return <Navigate to="/login" replace />;
 };
 
