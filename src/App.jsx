@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useState } from 'react'; // Ajout de l'import de useState
+import { useState } from "react"; // Ajout de l'import de useState
 import "./App.css";
 import Layout from "./Pages/Layout";
 import MenuContextProvider from "./Context/MenuContext/Provider";
@@ -7,9 +7,9 @@ import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Signin from "./Pages/SignIn";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import { AuthProvider } from "./Context/MenuContext/AuthContext";
 
 // Importez votre composant ProtectedRoute
-
 
 function App() {
   // Simulez l'état d'authentification, remplacez par votre logique de contexte
@@ -18,22 +18,24 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <MenuContextProvider>
-          <Routes>
-            {/* Routes publiques */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/signin" element={<Signin />} />
+        <AuthProvider>
+          <MenuContextProvider>
+            <Routes>
+              {/* Routes publiques */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/signin" element={<Signin />} />
 
-            {/* C'est ici que la route est protégée */}
-            {/* Le composant ProtectedRoute vérifie l'authentification */}
-            <Route element={<ProtectedRoute isAuth={isAuthenticated} />}>
-              {/* Ces routes ne seront accessibles que si l'utilisateur est authentifié */}
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
+              {/* C'est ici que la route est protégée */}
+              {/* Le composant ProtectedRoute vérifie l'authentification */}
+              <Route element={<ProtectedRoute isAuth={isAuthenticated} />}>
+                {/* Ces routes ne seront accessibles que si l'utilisateur est authentifié */}
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<Home />} />
+                </Route>
               </Route>
-            </Route>
-          </Routes>
-        </MenuContextProvider>
+            </Routes>
+          </MenuContextProvider>
+        </AuthProvider>
       </BrowserRouter>
     </>
   );

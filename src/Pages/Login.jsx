@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/logo-png.png";
 import { Link } from "react-router-dom";
+import { useAuth } from "../Context/MenuContext/AuthContext";
 
 const Login = () => {
+  const { login, error } = useAuth();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(username, password); // Appelle la fonction de connexion du contexte
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900">
       {/* <!-- Container --> */}
       <div className="mx-auto w-full">
-        <div className="flex justify-center px-2 py-4 w-full">
+        <div className="flex justify-center px-2 py-6 w-full">
           <div className="w-full xl:w-3/4 lg:w-11/12 flex">
-            <div className="w-full h-auto bg-gray-400 bg-login hidden lg:block lg:w-5/12 bg-cover rounded-l-lg">
-              <div className="flex flex-col items-center justify-center h-full p-8 bg-gray-600/30 rounded-2xl text-white text-center">
+            <div className="w-full h-auto bg-login hidden sm:block md:w-5/12 bg-cover rounded-2xl">
+              <div className="flex flex-col items-center justify-center h-full p-8 rounded-2xl text-white text-center">
                 <h1 className="text-2xl">
                   Connect, Share, and Thrive in Toamasina
                 </h1>
@@ -31,25 +41,38 @@ const Login = () => {
                   alt=""
                   className="w-18 h-18 flex justify-self-center"
                 />
-                <form className="px-8 pt-6 pb-8 mb-4  text-gray-800 rounded">
+                <form
+                  onSubmit={handleSubmit}
+                  className="px-8 pt-6 pb-8 mb-4  text-gray-800 rounded"
+                >
                   <div className="mb-4">
-                    <label className="block mb-2 text-sm font-bold " htmlFor="email">
+                    <label
+                      className="block mb-2 text-sm font-bold "
+                      htmlFor="email"
+                    >
                       Email
                     </label>
                     <input
-                      className="w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                      className="w-full px-3 py-2 mb-3 text-sm leading-tight  border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       id="email"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
                       type="email"
                       placeholder="Email"
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="block mb-2 text-sm font-bold " htmlFor="password">
+                    <label
+                      className="block mb-2 text-sm font-bold "
+                      htmlFor="password"
+                    >
                       Password
                     </label>
                     <input
-                      className="w-full px-3 py-2 mb-3 text-sm leading-tight  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                      className="w-full px-3 py-2 mb-3 text-sm leading-tight  border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       type="password"
                       placeholder="******************"
                     />
@@ -58,9 +81,10 @@ const Login = () => {
                       </p> */}
                   </div>
                   <div className="mb-6 text-center">
+                    <span className="text-red-500">{error}</span>
                     <button
-                      className="w-full px-4 py-2 font-bold cursor-pointer text-white bg-blue-500 rounded-full hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline"
-                      type="button"
+                      className="w-full mt-2 px-4 py-2 font-bold cursor-pointer text-white bg-blue-500 rounded-full hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline"
+                      type="submit"
                     >
                       Login in
                     </button>

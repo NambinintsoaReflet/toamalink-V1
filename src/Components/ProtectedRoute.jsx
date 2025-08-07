@@ -1,14 +1,11 @@
 // src/components/ProtectedRoute.jsx
-import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '../Context/MenuContext/AuthContext';
 
-const ProtectedRoute = ({ isAuth }) => {
-  // Si l'utilisateur est authentifié, on rend la route enfant via <Outlet />
-  if (isAuth) {
-    return <Outlet />;
-  }
+const ProtectedRoute = () => {
+  const { isAuthenticated } = useAuth(); // Récupère l'état depuis le contexte
 
-  return <Navigate to="/login" replace />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default ProtectedRoute;

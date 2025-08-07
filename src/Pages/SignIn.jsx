@@ -7,10 +7,10 @@ const Signin = () => {
     <div className="min-h-screen bg-gray-100 text-gray-900">
       {/* <!-- Container --> */}
       <div className="mx-auto w-full">
-        <div className="flex justify-center px-2 py-4 w-full">
+        <div className="flex justify-center px-2 py-6 w-full">
           <div className="w-full xl:w-3/4 lg:w-11/12 flex">
-            <div className="w-full h-auto bg-gray-400 bg-login hidden lg:block lg:w-5/12 bg-cover rounded-l-lg">
-              <div className="flex flex-col items-center justify-center h-full p-8 bg-gray-600/30 rounded-2xl text-white text-center">
+            <div className="w-full h-auto  bg-login hidden lg:block lg:w-5/12 bg-cover rounded-2xl">
+              <div className="flex flex-col items-center justify-center h-full p-8  rounded-2xl text-white text-center">
                 <h1 className="text-2xl">
                   Connect, Share, and Thrive in Toamasina
                 </h1>
@@ -21,7 +21,7 @@ const Signin = () => {
                 </p>
               </div>
             </div>
-            <div className="w-full lg:w-7/12 text-gray-800 rounded-lg bg-amber-50 lg:rounded-l-none">
+            <div className="w-full lg:w-7/12 text-gray-800 rounded-lg bg-white lg:rounded-l-none">
               <h3 className="py-4 text-2xl text-center">Create an Account!</h3>
               <img
                 src={logo}
