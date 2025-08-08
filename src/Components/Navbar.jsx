@@ -17,25 +17,10 @@ const Navbar = ({ handleShowModal }) => {
         <img src={logoPng} alt="" className="w-auto h-12 sm:h-15" />
       </div>
       <div className="flex items-center justify-center space-x-3">
-        {!user ? (
-          <>
-            <Link
-              to={"/login"}
-              className="p-1 pl-3 pr-3 bg-amber-400 cursor-pointer rounded-sm text-amber-50"
-            >
-              Login
-            </Link>
-            <button className="p-1 pl-3 pr-3 bg-blue-400 cursor-pointer rounded-sm text-amber-50">
-              Sign in
-            </button>
-          </>
-        ) : (
-          <div className="flex items-center space-x-2">
-            <FaUserCircle className="h-6 w-6 text-cyan-800" />
-            <div className="text-gray-800 font-medium">{user.name}</div>
-          </div>
-        )}
-
+        <div className="flex items-center space-x-2">
+          <FaUserCircle className="h-6 w-6 text-cyan-800" />
+          <div className="text-gray-800 font-medium">{user.name}</div>
+        </div>
         <div
           onClick={toggle}
           className={`p-0.5 lg:hidden ${user ? "" : "hidden"}`}
