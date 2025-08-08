@@ -74,7 +74,7 @@ const Login = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       type="password"
-                      placeholder="******************"
+                      placeholder="Password"
                     />
                     {/* <p className="text-xs italic text-red-500">
                         Please choose a password.

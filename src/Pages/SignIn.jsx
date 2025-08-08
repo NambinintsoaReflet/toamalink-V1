@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import logo from "../assets/logo-png.png";
 import { Link } from "react-router-dom";
 import { useAuth } from "../Context/MenuContext/AuthContext";
+import countryList from "react-select-country-list";
+import Select from "react-select";
 
 const Signin = () => {
   const { signup } = useAuth();
@@ -61,6 +63,12 @@ const Signin = () => {
       return;
     }
     signup(firstName, lastName, email, password, verificationCode);
+  };
+
+  const options = useMemo(() => countryList().getData(), []);
+
+  const changeHandler = (value) => {
+    setCountryOfOrigin(value);
   };
 
   return (
@@ -205,15 +213,14 @@ const Signin = () => {
               </div>
             </div>
 
-            <div className="w-full lg:w-7/12 text-gray-800 rounded-lg bg-white lg:rounded-l-none">
-              <h3 className="py-4 text-2xl text-center">Create an Account!</h3>
+            <div className="w-full lg:w-7/12 p-1 text-gray-800 rounded-lg bg-white lg:rounded-l-none">
+              <h3 className="py-4 pb-0 text-2xl text-center">Create an Account!</h3>
               <img src={logo} alt="logo" className="w-15 h-15 mx-auto" />
 
               {formStep === 1 ? (
-                // ... (Votre formulaire de la première étape) ...
                 <form
                   onSubmit={handleInitialSubmit}
-                  className="px-10 pt-2 pb-4 text-gray-800 rounded"
+                  className="px-8 pt-2 text-gray-800 rounded"
                 >
                   <div className="mb-2 md:flex md:justify-between">
                     <div className="mb-4 md:mr-2 md:mb-0">
@@ -293,7 +300,14 @@ const Signin = () => {
                     >
                       Pays d'origine
                     </label>
-                    <input
+                    <Select
+                      options={options}
+                      value={countryOfOrigin}
+                      onChange={changeHandler}
+                      
+                      required
+                    />
+                    {/* <input
                       className="w-full px-3 py-2 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       id="country"
                       type="text"
@@ -301,7 +315,7 @@ const Signin = () => {
                       value={countryOfOrigin}
                       onChange={(e) => setCountryOfOrigin(e.target.value)}
                       required
-                    />
+                    /> */}
                   </div>
                   <div className="mb-2 md:flex md:justify-between">
                     <div className="mb-4 md:mr-2 md:mb-0">
@@ -315,7 +329,7 @@ const Signin = () => {
                         className="w-full px-3 py-2 mb-3 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         id="password"
                         type="password"
-                        placeholder="******************"
+                        placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
@@ -332,7 +346,7 @@ const Signin = () => {
                         className="w-full px-3 py-2 mb-3 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         id="c_password"
                         type="password"
-                        placeholder="******************"
+                        placeholder="Confirm Password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
