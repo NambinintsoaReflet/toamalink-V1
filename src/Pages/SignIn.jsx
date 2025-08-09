@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import logo from "../assets/logo-png.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../Context/MenuContext/AuthContext";
 import countryList from "react-select-country-list";
 import Select from "react-select";
 
@@ -15,6 +14,7 @@ const Signin = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [generatedCode, setGeneratedCode] = useState("");
+  const [error, setError] = useState("");
 
   const Navigate = useNavigate();
 
@@ -43,15 +43,13 @@ const Signin = () => {
     }
     const newCode = Math.floor(1000 + Math.random() * 9000).toString();
     setGeneratedCode(newCode);
-    console.log(`Code de vérification simulé pour ${email}: ${newCode}`);
-    alert(`Un nouveau code a été envoyé à ${email}.`);
     setTimer(60); // Réinitialise le minuteur
   };
 
   const handleInitialSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Les mots de passe ne correspondent pas !");
+      setError("Les mots de passe ne correspondent pas !");
       return;
     }
     handleGetCode();
@@ -66,7 +64,16 @@ const Signin = () => {
       alert("Le code de vérification est incorrect.");
       return;
     }
-    console.log("Code de vérification correct ! :", verificationCode, firstName, lastName, email, password, address, countryOfOrigin);
+    console.log(
+      "Code de vérification correct ! :",
+      verificationCode,
+      firstName,
+      lastName,
+      email,
+      password,
+      address,
+      countryOfOrigin
+    );
     Navigate("/login");
     // signup(firstName, lastName, email, password, verificationCode);
   };
@@ -204,9 +211,9 @@ const Signin = () => {
     // </div>
     <div className="min-h-screen bg-gray-100 text-gray-900">
       <div className="mx-auto w-full">
-        <div className="flex justify-center px-2 py-6 w-full">
-          <div className="w-full xl:w-3/4 lg:w-11/12 flex">
-            <div className="w-full h-auto bg-login hidden lg:block lg:w-5/12 bg-cover rounded-2xl">
+        <div className="flex items-center justify-center px-2 py-6 w-full">
+          <div className="w-full justify-center xl:w-3/4 lg:w-12/12 min-h-[92vh] flex">
+            <div className="w-full h-auto bg-login hidden sm:block md:w-5/12 bg-cover rounded-2xl">
               <div className="flex flex-col items-center justify-center h-full p-8 rounded-2xl text-white text-center">
                 <h1 className="text-2xl">
                   Connect, Share, and Thrive in Toamasina
@@ -219,234 +226,232 @@ const Signin = () => {
               </div>
             </div>
 
-            <div className="w-full lg:w-7/12 p-1 text-gray-800 rounded-lg bg-white lg:rounded-l-none">
-              <h3 className="py-4 pb-0 text-2xl text-center">Create an Account!</h3>
-              <img src={logo} alt="logo" className="w-15 h-15 mx-auto" />
+            <div className="w-full max-w-sm lg:w-7/12 items-center lg:max-w-md text-black rounded-lg lg:rounded-l-none md:flex md:justify-center bg-white">
+              <div className="w-full lg:w-sm">
+                <h3 className="py-4 pb-0 text-2xl text-center">
+                  Create an Account!
+                </h3>
+                <div className="w-10 h-10 mt-1 flex justify-self-center p-1 border rounded-full border-[#a9a9a9] bg-white mx-auto shadow-xs">
+                  <img src={logo} alt="" />
+                </div>
 
-              {formStep === 1 ? (
-                <form
-                  onSubmit={handleInitialSubmit}
-                  className="px-8 pt-2 text-gray-800 rounded"
-                >
-                  <div className="mb-2 md:flex md:justify-between">
-                    <div className="mb-4 md:mr-2 md:mb-0">
+                {formStep === 1 ? (
+                  <form
+                    onSubmit={handleInitialSubmit}
+                    className="px-8 pt-2 text-gray-800 rounded"
+                  >
+                    <div className="mb-2 md:flex md:justify-between">
+                      <div className="mb-4 md:mr-2 md:mb-0">
+                        <label
+                          className="block mb-2 text-sm font-bold"
+                          htmlFor="firstName"
+                        >
+                          First Name
+                        </label>
+                        <input
+                          className="w-full px-3 py-2 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                          id="firstName"
+                          type="text"
+                          placeholder="First Name"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div className="md:ml-2">
+                        <label
+                          className="block mb-2 text-sm font-bold"
+                          htmlFor="lastName"
+                        >
+                          Last Name
+                        </label>
+                        <input
+                          className="w-full px-3 py-2 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                          id="lastName"
+                          type="text"
+                          placeholder="Last Name"
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className="mb-2">
                       <label
                         className="block mb-2 text-sm font-bold"
-                        htmlFor="firstName"
+                        htmlFor="email"
                       >
-                        First Name
+                        Email
                       </label>
                       <input
                         className="w-full px-3 py-2 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                        id="firstName"
-                        type="text"
-                        placeholder="First Name"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
+                        id="email"
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                       />
                     </div>
-                    <div className="md:ml-2">
+                    {/* Ajout des nouveaux champs */}
+                    <div className="mb-2">
                       <label
                         className="block mb-2 text-sm font-bold"
-                        htmlFor="lastName"
+                        htmlFor="address"
                       >
-                        Last Name
+                        Adresse
                       </label>
                       <input
                         className="w-full px-3 py-2 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                        id="lastName"
+                        id="address"
                         type="text"
-                        placeholder="Last Name"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
+                        placeholder="Votre adresse"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
                         required
                       />
                     </div>
-                  </div>
-                  <div className="mb-2">
-                    <label
-                      className="block mb-2 text-sm font-bold"
-                      htmlFor="email"
-                    >
-                      Email
-                    </label>
-                    <input
-                      className="w-full px-3 py-2 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="email"
-                      type="email"
-                      placeholder="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                  {/* Ajout des nouveaux champs */}
-                  <div className="mb-2">
-                    <label
-                      className="block mb-2 text-sm font-bold"
-                      htmlFor="address"
-                    >
-                      Adresse
-                    </label>
-                    <input
-                      className="w-full px-3 py-2 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="address"
-                      type="text"
-                      placeholder="Votre adresse"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="mb-2">
-                    <label
-                      className="block mb-2 text-sm font-bold"
-                      htmlFor="country"
-                    >
-                      Pays d'origine
-                    </label>
-                    <Select
-                      options={options}
-                      value={countryOfOrigin}
-                      onChange={changeHandler}
-                      
-                      required
-                    />
-                    {/* <input
-                      className="w-full px-3 py-2 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="country"
-                      type="text"
-                      placeholder="Votre pays d'origine"
-                      value={countryOfOrigin}
-                      onChange={(e) => setCountryOfOrigin(e.target.value)}
-                      required
-                    /> */}
-                  </div>
-                  <div className="mb-2 md:flex md:justify-between">
-                    <div className="mb-2 md:mr-2 md:mb-0">
+                    <div className="mb-2">
                       <label
                         className="block mb-2 text-sm font-bold"
-                        htmlFor="password"
+                        htmlFor="country"
                       >
-                        Password
+                        Pays d'origine
                       </label>
-                      <input
-                        className="w-full px-3 py-2 mb-3 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                        id="password"
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                      <Select
+                        options={options}
+                        value={countryOfOrigin}
+                        onChange={changeHandler}
                         required
                       />
                     </div>
-                    <div className="md:ml-2">
+                    <div className=" md:flex md:justify-between">
+                      <div className="mb-2 md:mr-2 md:mb-0">
+                        <label
+                          className="block mb-2 text-sm font-bold"
+                          htmlFor="password"
+                        >
+                          Password
+                        </label>
+                        <input
+                          className="w-full px-3 py-2 mb-3 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                          id="password"
+                          type="password"
+                          placeholder="Password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div className="md:ml-2">
+                        <label
+                          className="block mb-2 text-sm font-bold"
+                          htmlFor="c_password"
+                        >
+                          Confirm Password
+                        </label>
+                        <input
+                          className="w-full px-3 py-2 mb-3 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                          id="c_password"
+                          type="password"
+                          placeholder="Confirm Password"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
+                    <span className="flex justify-self-center mb-1 text-red-500">
+                      {error}
+                    </span>
+                    <div className="mb-4 text-center">
+                      <button
+                        className="w-full px-4 py-2 font-bold cursor-pointer text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                        type="submit"
+                      >
+                        Register Account
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <form
+                    onSubmit={handleVerificationSubmit}
+                    className="px-8 pt-6 pb-8 mb-4 text-gray-800 rounded"
+                  >
+                    <p className="text-xs text-center mb-4">
+                      A 4-digit verification code has been sent to your email:{" "}
+                      {email}
+                    </p>
+                    <div className="mb-2">
                       <label
-                        className="block mb-2 text-sm font-bold"
-                        htmlFor="c_password"
+                        className="block text-sm font-bold mb-2 text-gray-700"
+                        htmlFor="verificationCode"
                       >
-                        Confirm Password
+                        Verification code
                       </label>
                       <input
-                        className="w-full px-3 py-2 mb-3 text-sm leading-tight border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                        id="c_password"
-                        type="password"
-                        placeholder="Confirm Password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        type="text"
+                        className="w-full p-2 border rounded-md"
+                        id="verificationCode"
+                        value={verificationCode}
+                        onChange={(e) => setVerificationCode(e.target.value)}
                         required
                       />
                     </div>
-                  </div>
 
-                  <div className="mb-4 text-center">
-                    <button
-                      className="w-full px-4 py-2 font-bold cursor-pointer text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                      type="submit"
-                    >
-                      Register Account
-                    </button>
-                  </div>
-                </form>
-              ) : (
-                <form
-                  onSubmit={handleVerificationSubmit}
-                  className="px-8 pt-6 pb-8 mb-4 text-gray-800 rounded"
-                >
-                  <p className="text-center mb-4">
-                    Un code de vérification à 4 chiffres a été envoyé à votre
-                    email.
-                  </p>
-                  <div className="mb-2">
-                    <label
-                      className="block text-sm font-bold mb-2 text-gray-700"
-                      htmlFor="verificationCode"
-                    >
-                      Code de vérification
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full p-2 border rounded-md"
-                      id="verificationCode"
-                      value={verificationCode}
-                      onChange={(e) => setVerificationCode(e.target.value)}
-                      required
-                    />
-                  </div>
+                    <div className="mb-6 text-center">
+                      <button
+                        type="submit"
+                        className="w-full px-4 py-2 font-bold cursor-pointer text-white bg-green-500 rounded-full hover:bg-green-700 focus:outline-none focus:shadow-outline"
+                      >
+                        Check and register
+                      </button>
+                    </div>
 
-                  <div className="mb-6 text-center">
-                    <button
-                      type="submit"
-                      className="w-full px-4 py-2 font-bold cursor-pointer text-white bg-green-500 rounded-full hover:bg-green-700 focus:outline-none focus:shadow-outline"
-                    >
-                      Vérifier et s'inscrire
-                    </button>
-                  </div>
+                    <div className="text-center mt-4">
+                      {/* 3. Le bouton de renvoi */}
+                      {timer > 0 ? (
+                        <span className="text-gray-500 text-sm">
+                          Return in {timer}s
+                        </span>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={handleGetCode}
+                          className="text-sm text-blue-500 hover:text-blue-800"
+                        >
+                          Resend code
+                        </button>
+                      )}
+                    </div>
 
-                  <div className="text-center mt-4">
-                    {/* 3. Le bouton de renvoi */}
-                    {timer > 0 ? (
-                      <span className="text-gray-500 text-sm">
-                        Renvoyer dans {timer}s
-                      </span>
-                    ) : (
+                    <div className="text-center mt-4">
                       <button
                         type="button"
-                        onClick={handleGetCode}
+                        onClick={() => setFormStep(1)}
                         className="text-sm text-blue-500 hover:text-blue-800"
                       >
-                        Renvoyer le code
+                        Cancel
                       </button>
-                    )}
-                  </div>
-
-                  <div className="text-center mt-4">
-                    <button
-                      type="button"
-                      onClick={() => setFormStep(1)}
-                      className="text-sm text-blue-500 hover:text-blue-800"
-                    >
-                      Retour
-                    </button>
-                  </div>
-                </form>
-              )}
-              <div className="text-center">
-                <a
-                  className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                  href="#"
-                >
-                  Forgot Password?
-                </a>
-              </div>
-              <div className="text-center">
-                <Link
-                  className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                  to={"/login"}
-                >
-                  Already have an account? Login!
-                </Link>
+                    </div>
+                  </form>
+                )}
+                <div className="text-center mb-1">
+                  <a
+                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                    href="#"
+                  >
+                    Forgot Password?
+                  </a>
+                </div>
+                <div className="text-center ">
+                  <Link
+                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                    to={"/login"}
+                  >
+                    Already have an account? Login!
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

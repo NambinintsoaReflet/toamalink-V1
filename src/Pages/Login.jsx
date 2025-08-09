@@ -17,8 +17,8 @@ const Login = () => {
     <div className="flex items-center min-h-screen bg-gray-100 text-gray-900">
       {/* <!-- Container --> */}
       <div className="mx-auto w-full">
-        <div className="flex items-center justify-center px-2 py-6 w-full">
-          <div className="flex justify-center w-full xl:w-3/4 lg:w-12/12">
+        <div className="flex items-center justify-center px-2 py-6 w-full ">
+          <div className="flex justify-center w-full xl:w-3/4 lg:w-12/12 min-h-[92vh]">
             <div className="w-full h-auto bg-login hidden sm:block md:w-5/12 bg-cover rounded-2xl">
               <div className="flex flex-col items-center justify-center h-full p-8 rounded-2xl text-white text-center">
                 <h1 className="text-2xl">
@@ -31,12 +31,13 @@ const Login = () => {
                 </p>
               </div>
             </div>
-            <div className="w-full max-w-sm lg:w-7/12 text-black rounded-lg lg:rounded-l-none md:flex md:justify-center bg-white">
+
+            <div className=" flex w-full max-w-sm items-center lg:w-7/12 lg:max-w-md text-black rounded-lg lg:rounded-l-none md:flex md:justify-center bg-white">
               <div className="w-full lg:w-sm">
                 <p className="flex justify-self-center mt-4 m-2 text-gray-600">
                   English(US)
                 </p>
-                <div className="w-14 h-14 flex justify-self-center p-1 border rounded-full border-[#a9a9a9] bg-white mx-auto shadow-xs">
+                <div className="w-10 h-10 flex justify-self-center p-1 border rounded-full border-[#a9a9a9] bg-white mx-auto shadow-xs">
                   <img
                     src={logo}
                     alt=""
