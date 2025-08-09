@@ -1,5 +1,5 @@
 import React from "react";
-import pdp from "../../assets/pexels-no-name-14543-66997.jpg"
+import pdp from "../../assets/pexels-no-name-14543-66997.jpg"; // Exemple d'image de profil
 import { SlOptionsVertical } from "react-icons/sl";
 import { AiOutlineLike } from "react-icons/ai";
 import { GoComment } from "react-icons/go";
@@ -24,7 +24,7 @@ const EventCard = () => {
         quaerat. Tenetur cupiditate quo impedit at vitae labore laboriosam nobis
         accusamus.
       </p>
-      <img src={pdp} alt="photo publier" className="mt-2" />
+      <img src={pdp} alt="photo publier" className="mt-2 aspect-[4/3]" />
       <div className="mt-2">
         {/* <h3 className="event-card-title">itle</h3> */}
         <p className=" text-gray-800 text-normal">

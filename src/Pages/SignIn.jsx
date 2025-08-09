@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import logo from "../assets/logo-png.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/MenuContext/AuthContext";
 import countryList from "react-select-country-list";
 import Select from "react-select";
 
 const Signin = () => {
-  const { signup } = useAuth();
+  // const { signup } = useAuth();
   const [formStep, setFormStep] = useState(1);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -15,6 +15,8 @@ const Signin = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [generatedCode, setGeneratedCode] = useState("");
+
+  const Navigate = useNavigate();
 
   // Nouveaux états pour l'adresse et le pays
   const [address, setAddress] = useState("");
@@ -56,13 +58,17 @@ const Signin = () => {
     setFormStep(2);
   };
 
+  console.log(generatedCode);
+
   const handleVerificationSubmit = (e) => {
     e.preventDefault();
     if (verificationCode !== generatedCode) {
       alert("Le code de vérification est incorrect.");
       return;
     }
-    signup(firstName, lastName, email, password, verificationCode);
+    console.log("Code de vérification correct ! :", verificationCode, firstName, lastName, email, password, address, countryOfOrigin);
+    Navigate("/login");
+    // signup(firstName, lastName, email, password, verificationCode);
   };
 
   const options = useMemo(() => countryList().getData(), []);
@@ -318,7 +324,7 @@ const Signin = () => {
                     /> */}
                   </div>
                   <div className="mb-2 md:flex md:justify-between">
-                    <div className="mb-4 md:mr-2 md:mb-0">
+                    <div className="mb-2 md:mr-2 md:mb-0">
                       <label
                         className="block mb-2 text-sm font-bold"
                         htmlFor="password"

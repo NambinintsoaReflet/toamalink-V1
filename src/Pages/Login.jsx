@@ -14,11 +14,11 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900">
+    <div className="flex items-center min-h-screen bg-gray-100 text-gray-900">
       {/* <!-- Container --> */}
       <div className="mx-auto w-full">
-        <div className="flex justify-center px-2 py-6 w-full">
-          <div className="w-full xl:w-3/4 lg:w-11/12 flex">
+        <div className="flex items-center justify-center px-2 py-6 w-full">
+          <div className="flex justify-center w-full xl:w-3/4 lg:w-12/12">
             <div className="w-full h-auto bg-login hidden sm:block md:w-5/12 bg-cover rounded-2xl">
               <div className="flex flex-col items-center justify-center h-full p-8 rounded-2xl text-white text-center">
                 <h1 className="text-2xl">
@@ -31,19 +31,21 @@ const Login = () => {
                 </p>
               </div>
             </div>
-            <div className="w-full lg:w-7/12 text-black rounded-lg lg:rounded-l-none md:flex md:justify-center bg-white">
-              <div className="lg:mt-12 mt-14 lg:w-sm">
+            <div className="w-full max-w-sm lg:w-7/12 text-black rounded-lg lg:rounded-l-none md:flex md:justify-center bg-white">
+              <div className="w-full lg:w-sm">
                 <p className="flex justify-self-center mt-4 m-2 text-gray-600">
                   English(US)
                 </p>
-                <img
-                  src={logo}
-                  alt=""
-                  className="w-18 h-18 flex justify-self-center"
-                />
+                <div className="w-14 h-14 flex justify-self-center p-1 border rounded-full border-[#a9a9a9] bg-white mx-auto shadow-xs">
+                  <img
+                    src={logo}
+                    alt=""
+                  />
+                </div>
+
                 <form
                   onSubmit={handleSubmit}
-                  className="px-8 pt-6 pb-8 mb-4  text-gray-800 rounded"
+                  className="px-8 pt-6 pb-8 text-gray-800 rounded"
                 >
                   <div className="mb-4">
                     <label
@@ -83,14 +85,14 @@ const Login = () => {
                   <div className="mb-6 text-center">
                     <span className="text-red-500">{error}</span>
                     <button
-                      className="w-full mt-2 px-4 py-2 font-bold cursor-pointer text-white bg-blue-500 rounded-full hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline"
+                      className="w-full mt-2 px-4 py-2 font-bold cursor-pointer text-white bg-blue-500 rounded hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline"
                       type="submit"
                     >
                       Login in
                     </button>
                   </div>
                   <hr className="mb-6 border-t" />
-                  <div className="text-center">
+                  <div className="text-center mb-1">
                     <a
                       className="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
                       href="#"

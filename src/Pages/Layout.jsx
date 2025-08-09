@@ -50,44 +50,8 @@ const Layout = ({ handleShowModal }) => {
 
   return (
     <>
-      {/* <Navbar handleShowModal={handleShowModal} />
-      <div className="bg-gray-100 min-h-screen lg:mt-12 mt-14">
-        <div className="flex">
-          <aside
-            className={`z-10 bg-white mt-1 overflow-hidden transition-all duration-200 h-screen ${
-              open ? "w-80 p-4" : "w-0"
-            } lg:w-80 fixed lg:p-4 `}
-          >
-            <ul>
-              {navItems.map(({ href, label, icon }) => (
-                <li
-                  key={href}
-                  className={`flex items-center rounded-sm p-1 pl-2 transition-colors ${
-                    pathname === href
-                      ? "bg-blue-200 text-blue-600"
-                      : "hover:bg-blue-200 hover:text-blue-600"
-                  }`}
-                >
-                  {icon}
-                  <Link to={href}>{label}</Link>
-                </li>
-              ))}
-            </ul>
-          </aside>
-          <main
-            className={`p-4 w-full lg:ml-80`}
-            onClick={() => setOpen(false)}
-          >
-            <Outlet />
-          </main>
-          <div className="p-4 bg-blue-100 w-xl hidden lg:block">
-              <PersonList/>
-          </div>
-        </div>
-      </div> */}
       <Navbar handleShowModal={handleShowModal} />
       <div class="min-h-screen overflow-hidden mt-14">
-        {/* <div class="grid grid-cols-6 h-screen"> */}
         <div className="flex h-screen">
           <aside
             className={`bg-white mt-1 overflow-hidden transition-all duration-200 h-screen w-80 p-4 ${
@@ -101,7 +65,7 @@ const Layout = ({ handleShowModal }) => {
                   className={`flex items-center text-lg rounded-sm p-2 pl-2 transition-colors ${
                     pathname === href
                       ? "bg-blue-200 text-blue-600"
-                      : "hover:bg-blue-200 hover:text-blue-600"
+                      : " hover:text-blue-600"
                   }`}
                 >
                   {icon}
