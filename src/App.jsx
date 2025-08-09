@@ -8,6 +8,7 @@ import Login from "./Pages/Login";
 import Signin from "./Pages/SignIn";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import { AuthProvider } from "./Context/MenuContext/AuthContext";
+import Welcome from "./Pages/Welcome";
 
 // Importez votre composant ProtectedRoute
 
@@ -24,6 +25,7 @@ function App() {
               {/* Routes publiques */}
               <Route path="/login" element={<Login />} />
               <Route path="/signin" element={<Signin />} />
+               <Route path="/welcome" element={<Welcome />} />
 
               {/* C'est ici que la route est protégée */}
               {/* Le composant ProtectedRoute vérifie l'authentification */}

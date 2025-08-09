@@ -74,7 +74,7 @@ const Signin = () => {
       address,
       countryOfOrigin
     );
-    Navigate("/login");
+    Navigate("/welcome");
     // signup(firstName, lastName, email, password, verificationCode);
   };
 
