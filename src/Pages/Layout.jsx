@@ -1,102 +1,75 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { MenuContext } from "../Context/MenuContext/MenuContext";
-import { AiOutlineHome } from "react-icons/ai";
-import { GoCommentDiscussion } from "react-icons/go";
-import { FaUserFriends } from "react-icons/fa";
-import { IoIosSettings } from "react-icons/io";
 import Navbar from "../Components/Navbar";
 import PersonList from "../Components/PersonList";
-import { VscDiffAdded } from "react-icons/vsc";
 
-const Layout = ({ handleShowModal }) => {
-  const { open, setOpen } = useContext(MenuContext);
+import { NavMobile, NavWeb } from "../Data/Menu";
+
+const Layout = () => {
   const location = useLocation(); // On utilise useLocation
   const pathname = location.pathname; // On accède à la propriété pathname
 
-  const navItems = [
-    {
-      href: "/",
-      label: "Home",
-      icon: <AiOutlineHome className="text-2xl mb-[2px]" />,
-    },
-    {
-      href: "/events",
-      label: "Events",
-      icon: <GoCommentDiscussion className="text-2xl mb-[2px]" />,
-    },
-    {
-      href: "/messages",
-      label: "Messages",
-      icon: <VscDiffAdded className="text-2xl mb-[2px]" />,
-    },
-    {
-      href: "/expats",
-      label: "Expats",
-      icon: <FaUserFriends className="text-2xl mb-[2px]" />,
-    },
-    {
-      href: "/setting",
-      label: "Settings",
-      icon: <IoIosSettings className="text-2xl mb-[2px]" />,
-    },
-  ];
-
   return (
     <>
-      <Navbar handleShowModal={handleShowModal} />
-      <div class="h-[80vh] overflow-hidden mt-14">
+      <Navbar />
+      <div class="h-[76vh] overflow-hidden mt-14 lg:min-h-screen">
         <div className="h-full flex">
-          {/* <aside
-            className={`bg-white mt-1 overflow-hidden transition-all duration-200 h-screen w-80 p-4 ${
+          <aside
+            className={`bg-white mt-1 overflow-hidden hidden transition-all duration-200 h-screen w-80 p-4 ${
               open ? "block" : "hidden"
             } lg:block fixed lg:p-4`}
           >
             <ul>
-              {navItems.map(({ href, label, icon }) => (
+              {NavWeb.map(({ href, label, icon, nb }) => (
                 <li
                   key={href}
-                  className={`flex items-center text-lg rounded-sm text-gray-400 p-2 pl-2 transition-colors ${
+                  className={`flex items-center p-2 px-3 rounded-sm transition-colors ${
                     pathname === href
                       ? "bg-blue-200 text-blue-600"
                       : " hover:text-blue-600"
                   }`}
                 >
-                  {icon}
-                  <Link to={href}>{label}</Link>
+                  <Link to={href} className="flex">
+                    {icon}
+                    {label}
+                  </Link>
+                  <div className="ml-2 bg-red-600 rounded-2xl text-white px-2 text-sm">
+                    {nb}
+                  </div>
                 </li>
               ))}
             </ul>
-          </aside> */}
+          </aside>
 
-          <div
-            class="bg-white lg:ml-80 w-200 p-4 no-scrollbar overflow-y-scroll h-full"
-            onClick={() => setOpen(false)}
-          >
+          <div class="bg-white lg:ml-80 w-200 no-scrollbar overflow-y-scroll h-full lg:mt-2">
             <Outlet />
           </div>
 
           <div class="bg-gray-100 p-4 no-scrollbar overflow-y-scroll w-100 h-full hidden lg:block">
-           <PersonList/>
+            <PersonList />
           </div>
         </div>
       </div>
-      <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 flex justify-between items-center lg:hidden">
+      <div className="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_6px_rgba(0,0,0,0.1)] px-4 py-2 flex justify-between items-center lg:hidden">
         <ul className="flex justify-around w-full">
-        
-              {navItems.map(({ href, label, icon }) => (
-                <li
-                  key={href}
-                  className={`flex flex-col items-center justify-center p-2 px-3 rounded-2xl transition-colors ${
-                    pathname === href
-                      ? "bg-cyan-600 text-white"
-                      : " hover:text-blue-600"
-                  }`}
-                >
-                  {icon}
-                  <Link className="text-xs" to={href}>{label}</Link>
-                </li>
-              ))}
+          {NavMobile.map(({ href, label, icon, nb }) => (
+            <li
+              key={href}
+              className={`flex flex-col items-center justify-center p-2 px-3 rounded-2xl transition-colors ${
+                pathname === href
+                  ? "bg-cyan-600 text-white shadow-lg"
+                  : " hover:text-blue-600"
+              }`}
+            >
+              <div className="absolute top-0 text-[10px] text-white bg-red-600 px-1.5 rounded-xl ml-5 mt-0.5">
+                {nb}
+              </div>
+              <Link className="text-xs" to={href}>
+                {icon}
+                {label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </>

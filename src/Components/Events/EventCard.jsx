@@ -16,9 +16,9 @@ const EventCard = () => {
           </span>
         </div>
 
-        <SlOptionsVertical className="cursor-pointer" />
+        <SlOptionsVertical className="cursor-pointer text-gray-700" />
       </div>
-      <p>
+      <p className=" text-gray-800 mb-2">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet fugit hic
         reprehenderit, optio vel exercitationem sequi sunt voluptas fuga
         quaerat. Tenetur cupiditate quo impedit at vitae labore laboriosam nobis

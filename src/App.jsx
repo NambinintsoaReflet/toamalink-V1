@@ -9,6 +9,8 @@ import Signin from "./Pages/SignIn";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import { AuthProvider } from "./Context/MenuContext/AuthContext";
 import Welcome from "./Pages/Welcome";
+import Messages from "./Pages/Messages";
+import UnderConstruction from "./Pages/UnderConstruction";
 
 // Importez votre composant ProtectedRoute
 
@@ -29,12 +31,14 @@ function App() {
 
               {/* C'est ici que la route est protégée */}
               {/* Le composant ProtectedRoute vérifie l'authentification */}
-              <Route element={<ProtectedRoute isAuth={isAuthenticated} />}>
+              {/* <Route element={<ProtectedRoute isAuth={isAuthenticated} />}> */}
                 {/* Ces routes ne seront accessibles que si l'utilisateur est authentifié */}
                 <Route path="/" element={<Layout />}>
                   <Route index element={<Home />} />
+                  <Route path="/message" element={<UnderConstruction />} />
+                    <Route path="/*" element={<UnderConstruction />} />
                 </Route>
-              </Route>
+              {/* </Route> */}
             </Routes>
           </MenuContextProvider>
         </AuthProvider>
