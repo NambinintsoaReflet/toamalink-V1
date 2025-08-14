@@ -7,7 +7,7 @@ import EventList from "../Components/Events/EventList";
 const Home = () => {
   return (
     <>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex flex-col items-center justify-center bg-gray-100">
         <EventList />
          <EventList />
       </div>
