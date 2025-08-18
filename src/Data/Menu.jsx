@@ -1,36 +1,35 @@
-import { AiOutlineHome } from "react-icons/ai";
+import { AiFillHome } from "react-icons/ai";
 import { FaUserFriends } from "react-icons/fa";
-import { GoCommentDiscussion } from "react-icons/go";
-import { IoIosSettings } from "react-icons/io";
+import { IoIosAddCircle, IoIosSettings } from "react-icons/io";
 import { IoNotifications } from "react-icons/io5";
-import { RiAddBoxLine } from "react-icons/ri";
+import { RiDiscussFill } from "react-icons/ri";
 
 export const NavMobile = [
   {
     href: "/",
     label: "",
-    icon: <AiOutlineHome className="text-2xl mb-[4px]" />,
+    icon: <AiFillHome className="text-2xl" />,
   },
   {
     href: "/message",
     label: "",
-    icon: <GoCommentDiscussion className="text-2xl mb-[4px]" />,
+    icon: <RiDiscussFill className="text-2xl" />,
     nb: 3, // Example message count
   },
   {
     href: "/add",
     label: "",
-    icon: <RiAddBoxLine className="text-2xl mb-[4px]" />,
+    icon: <IoIosAddCircle className="text-2xl" />,
   },
   {
     href: "/expats",
     label: "",
-    icon: <FaUserFriends className="text-2xl mb-[4px]" />,
+    icon: <FaUserFriends className="text-2xl" />,
   },
   {
     href: "/notifications",
     label: "",
-    icon: <IoNotifications className="text-2xl mb-[4px]" />,
+    icon: <IoNotifications className="text-2xl" />,
     nb: 5, // Example message count
   },
 ];
@@ -39,12 +38,12 @@ export const NavWeb = [
   {
     href: "/",
     label: "Home",
-    icon: <AiOutlineHome className="text-2xl mr-2" />,
+    icon: <AiFillHome className="text-2xl mr-2" />,
   },
   {
     href: "/message",
     label: "Message",
-    icon: <GoCommentDiscussion className="text-2xl mr-2" />,
+    icon: <RiDiscussFill className="text-2xl mr-2" />,
     nb: 3, // Example message count
   },
   {

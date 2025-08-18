@@ -11,6 +11,7 @@ import { AuthProvider } from "./Context/MenuContext/AuthContext";
 import Welcome from "./Pages/Welcome";
 import Messages from "./Pages/Messages";
 import UnderConstruction from "./Pages/UnderConstruction";
+import EventDetail from "./Components/Events/EventDetail";
 
 // Importez votre composant ProtectedRoute
 
@@ -27,17 +28,18 @@ function App() {
               {/* Routes publiques */}
               <Route path="/login" element={<Login />} />
               <Route path="/signin" element={<Signin />} />
-               <Route path="/welcome" element={<Welcome />} />
+              <Route path="/welcome" element={<Welcome />} />
 
               {/* C'est ici que la route est protégée */}
               {/* Le composant ProtectedRoute vérifie l'authentification */}
               {/* <Route element={<ProtectedRoute isAuth={isAuthenticated} />}> */}
-                {/* Ces routes ne seront accessibles que si l'utilisateur est authentifié */}
-                <Route path="/" element={<Layout />}>
-                  <Route index element={<Home />} />
-                  <Route path="/message" element={<UnderConstruction />} />
-                    <Route path="/*" element={<UnderConstruction />} />
-                </Route>
+              {/* Ces routes ne seront accessibles que si l'utilisateur est authentifié */}
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="/message" element={<UnderConstruction />} />
+                <Route path="/events/:id" element={<EventDetail />} />
+                <Route path="/*" element={<UnderConstruction />} />
+              </Route>
               {/* </Route> */}
             </Routes>
           </MenuContextProvider>

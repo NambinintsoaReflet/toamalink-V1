@@ -13,7 +13,7 @@ const Layout = () => {
     <>
       <Navbar />
       <div class="h-[76vh] overflow-hidden mt-14 lg:min-h-screen">
-        <div className="h-full flex">
+        <div className="h-full flex justify-center lg:justify-start">
           <aside
             className={`bg-white mt-1 overflow-hidden hidden transition-all duration-200 h-screen w-80 p-4 ${
               open ? "block" : "hidden"
@@ -57,7 +57,7 @@ const Layout = () => {
               key={href}
               className={`flex flex-col items-center justify-center p-2 px-3 rounded-2xl transition-colors ${
                 pathname === href
-                  ? "bg-cyan-600 text-white shadow-lg"
+                  ? " text-cyan-600 shadow-lg"
                   : " hover:text-blue-600"
               }`}
             >
