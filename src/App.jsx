@@ -12,6 +12,9 @@ import Welcome from "./Pages/Welcome";
 import Messages from "./Pages/Messages";
 import UnderConstruction from "./Pages/UnderConstruction";
 import EventDetail from "./Components/Events/EventDetail";
+import Expats from "./Pages/Expats";
+import Notifications from "./Pages/Notifications";
+import Discussion from "./Pages/Discussions";
 
 // Importez votre composant ProtectedRoute
 
@@ -36,7 +39,10 @@ function App() {
               {/* Ces routes ne seront accessibles que si l'utilisateur est authentifié */}
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path="/message" element={<UnderConstruction />} />
+                <Route path="/message" element={<Messages />} />
+                <Route path="/message/:id" element={<Discussion />} />
+                  <Route path="/notifications" element={<Notifications />} />
+                <Route path="/expats" element={<Expats />} />
                 <Route path="/events/:id" element={<EventDetail />} />
                 <Route path="/*" element={<UnderConstruction />} />
               </Route>

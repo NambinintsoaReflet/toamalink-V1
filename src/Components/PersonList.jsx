@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import pdp from "../assets/pexels-no-name-14543-66997.jpg"; // Exemple d'image de profil
+import { FaWhatsapp } from "react-icons/fa";
+import { RiMessage2Line } from "react-icons/ri";
+import { IoMailUnreadOutline } from "react-icons/io5";
+import { LiaUserFriendsSolid } from "react-icons/lia";
 
 const PersonList = () => {
   // Données de personnes simulées (vous les récupéreriez normalement depuis une API)
@@ -25,7 +29,10 @@ const PersonList = () => {
 
   return (
     <div className="container mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Liste des personnes</h2>
+      {/* <h1 className="text-3xl font-bold mb-2">Expats</h1> */}
+      <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2 mb-4">
+        <LiaUserFriendsSolid className="text-blue-600 text-2xl" /> Expats
+      </h1>
       <ul className="space-y-4">
         {people.map((person) => (
           <li
@@ -40,12 +47,20 @@ const PersonList = () => {
               />
               <span className="text-base font-medium">{person.name}</span>
             </div>
-            <button
-              onClick={() => handleSendMessage(person.name)}
+            <div className="flex items-center space-x-2">
+              <FaWhatsapp className="w-7 h-7 p-1 rounded-2xl text-emerald-600 bg-gray-200 hover:bg-emerald-600 hover:text-white cursor-pointer" />
+              <RiMessage2Line
+                onClick={() => handleSendMessage(person.name)}
+                className="w-7 h-7 p-1 rounded-2xl text-emerald-600 bg-gray-200 hover:bg-emerald-600 hover:text-white cursor-pointer"
+              />
+              <IoMailUnreadOutline className="w-7 h-7 p-1 rounded-2xl text-emerald-600 bg-gray-200 hover:bg-emerald-600 hover:text-white cursor-pointer" />
+            </div>
+            {/* <button
+          
               className="px-4 py-2 text-sm cursor-pointer font-semibold text-white bg-blue-500 rounded-full hover:bg-blue-600 transition-colors duration-200"
             >
               message
-            </button>
+            </button> */}
           </li>
         ))}
       </ul>

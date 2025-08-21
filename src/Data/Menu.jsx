@@ -47,7 +47,7 @@ export const NavWeb = [
     nb: 3, // Example message count
   },
   {
-    href: "/messages",
+    href: "/notifications",
     label: "Notifications",
     icon: <IoNotifications className="text-2xl mr-2" />,
     nb: 5, // Example notification count

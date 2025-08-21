@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'SF Pro';
+  src: url("./assets/font/SFPRODISPLAYREGULAR.OTF") format("opentype");
+}
+
+body{
+  font-family: 'SF Pro', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .bg-header {
   background-image: url('/src/assets/tamatave.jpg');
 }

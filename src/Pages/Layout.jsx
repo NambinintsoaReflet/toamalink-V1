@@ -12,10 +12,10 @@ const Layout = () => {
   return (
     <>
       <Navbar />
-      <div class="h-[76vh] overflow-hidden mt-14 lg:min-h-screen">
-        <div className="h-full flex justify-center lg:justify-start">
+      <div class="h-[76vh]  overflow-hidden mt-14 lg:min-h-[90vh] mb-2">
+        <div className="h-full flex justify-center lg:justify-start lg:mt-2">
           <aside
-            className={`bg-white mt-1 overflow-hidden hidden transition-all duration-200 h-screen w-80 p-4 ${
+            className={`bg-white mt-1 overflow-hidden  hidden transition-all duration-200 h-screen w-80 p-4 ${
               open ? "block" : "hidden"
             } lg:block fixed lg:p-4`}
           >
@@ -23,10 +23,14 @@ const Layout = () => {
               {NavWeb.map(({ href, label, icon, nb }) => (
                 <li
                   key={href}
-                  className={`flex items-center p-2 px-3 rounded-sm transition-colors ${
-                    pathname === href
+                  className={`flex items-center justify-between p-2 px-3 rounded-sm transition-colors ${
+                    (
+                      href === "/"
+                        ? pathname === href
+                        : pathname.startsWith(href)
+                    )
                       ? "bg-blue-200 text-blue-600"
-                      : " hover:text-blue-600"
+                      : "hover:text-blue-600"
                   }`}
                 >
                   <Link to={href} className="flex">
@@ -41,7 +45,7 @@ const Layout = () => {
             </ul>
           </aside>
 
-          <div class="bg-white lg:ml-80 w-200 no-scrollbar overflow-y-scroll h-full lg:mt-2">
+          <div class="bg-white lg:ml-80 w-200 no-scrollbar overflow-y-scroll h-auto lg:mt-1">
             <Outlet />
           </div>
 
@@ -56,7 +60,7 @@ const Layout = () => {
             <li
               key={href}
               className={`flex flex-col items-center justify-center p-2 px-3 rounded-2xl transition-colors ${
-                pathname === href
+                (href === "/" ? pathname === href : pathname.startsWith(href))
                   ? " text-cyan-600 shadow-lg"
                   : " hover:text-blue-600"
               }`}
