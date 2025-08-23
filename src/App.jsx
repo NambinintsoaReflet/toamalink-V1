@@ -15,6 +15,7 @@ import EventDetail from "./Components/Events/EventDetail";
 import Expats from "./Pages/Expats";
 import Notifications from "./Pages/Notifications";
 import Discussion from "./Pages/Discussions";
+import AddEvent from "./Pages/AddEvent";
 
 // Importez votre composant ProtectedRoute
 
@@ -39,6 +40,7 @@ function App() {
               {/* Ces routes ne seront accessibles que si l'utilisateur est authentifié */}
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
+                <Route path="/addevent" element={<AddEvent />} />
                 <Route path="/message" element={<Messages />} />
                 <Route path="/message/:id" element={<Discussion />} />
                   <Route path="/notifications" element={<Notifications />} />

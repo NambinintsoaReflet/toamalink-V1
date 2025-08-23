@@ -3,6 +3,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { IoIosAddCircle, IoIosSettings } from "react-icons/io";
 import { IoNotifications } from "react-icons/io5";
 import { RiDiscussFill } from "react-icons/ri";
+import ModalForm from "../Components/ModalForm";
 
 export const NavMobile = [
   {
@@ -17,7 +18,7 @@ export const NavMobile = [
     nb: 3, // Example message count
   },
   {
-    href: "/add",
+    href: "/addevent",
     label: "",
     icon: <IoIosAddCircle className="text-2xl" />,
   },
