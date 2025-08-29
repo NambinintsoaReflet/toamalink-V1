@@ -13,6 +13,8 @@
     "@headlessui/react": "^2.2.7",
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.1.11",
+    "@tanstack/react-query": "^5.85.5",
+    "axios": "^1.11.0",
     "framer-motion": "^12.23.12",
     "mobiscroll-react": "^4.0.0",
     "react": "^19.1.0",

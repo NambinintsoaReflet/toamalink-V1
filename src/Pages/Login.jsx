@@ -1,17 +1,25 @@
 import React, { useState } from "react";
 import logo from "../assets/logo-png.png";
 import { Link } from "react-router-dom";
-import { useAuth } from "../Context/MenuContext/AuthContext";
+import { useAuth } from "../Context/AuthContext";
+import { useMutation } from "@tanstack/react-query";
+import { api } from "../api/axios";
 
 const Login = () => {
-  const { login, error } = useAuth();
-  const [username, setUsername] = useState("");
+  const { login } = useAuth();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    login(username, password); // Appelle la fonction de connexion du contexte
-  };
+  const { mutate, isPending, error } = useMutation({
+    mutationFn: async () => {
+      const { data } = await api.post("/auth/login", { email, password });
+      // attendu: { token: "xxx", user: { id, name, email } }
+      return data;
+    },
+    onSuccess: (data) => {
+      login(data.token, data.user);
+    },
+  });
 
   return (
     <div className="flex items-center min-h-screen bg-gray-100 text-gray-900">
@@ -38,14 +46,14 @@ const Login = () => {
                   English(US)
                 </p>
                 <div className="w-10 h-10 flex justify-self-center p-1 border rounded-full border-[#a9a9a9] bg-white mx-auto shadow-xs">
-                  <img
-                    src={logo}
-                    alt=""
-                  />
+                  <img src={logo} alt="" />
                 </div>
 
                 <form
-                  onSubmit={handleSubmit}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    mutate();
+                  }}
                   className="px-8 pt-6 pb-8 text-gray-800 rounded"
                 >
                   <div className="mb-4">
@@ -58,8 +66,8 @@ const Login = () => {
                     <input
                       className="w-full px-3 py-2 mb-3 text-sm leading-tight  border border-gray-400 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       id="email"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       type="email"
                       placeholder="Email"
                     />
@@ -79,17 +87,18 @@ const Login = () => {
                       type="password"
                       placeholder="Password"
                     />
-                    {/* <p className="text-xs italic text-red-500">
-                        Please choose a password.
-                      </p> */}
                   </div>
                   <div className="mb-6 text-center">
-                    <span className="text-red-500">{error}</span>
+                    {error && (
+                      <p className="text-red-600 text-sm">Échec de connexion</p>
+                    )}
+
                     <button
                       className="w-full mt-2 px-4 py-2 font-bold cursor-pointer text-white bg-blue-500 rounded hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline"
                       type="submit"
+                      disabled={isPending}
                     >
-                      Login in
+                      {isPending ? "Connexion..." : "Se connecter"}
                     </button>
                   </div>
                   <hr className="mb-6 border-t" />
