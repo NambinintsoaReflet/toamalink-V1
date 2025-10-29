@@ -5,9 +5,9 @@ import { FaUserCircle } from "react-icons/fa";
 import { useAuth } from "../Context/AuthContext";
 
 const Navbar = () => {
-  const { token, user, logout } = useAuth();
+  const { user, logout } = useAuth();
 
-  console.log(localStorage.getItem("auth"));
+  // console.log("auth :",localStorage.getItem("auth"));
 
   return (
     <div className="flex justify-between items-center p-4 pt-1 pb-1 bg-white fixed top-0 left-0 right-0 z-50 shadow-md">

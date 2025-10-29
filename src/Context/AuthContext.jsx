@@ -21,6 +21,8 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const saved = localStorage.getItem("auth");
 
+    // console.log("save :",saved);
+
     if (saved) {
       const parsed = JSON.parse(saved);
       setToken(parsed.token);
@@ -40,7 +42,7 @@ export function AuthProvider({ children }) {
     setUser(usr);
     setToken(tk);
     setAuthToken(tk);
-    localStorage.setItem("auth", JSON.stringify({ token: tk, user: usr }));
+    localStorage.setItem("auth", JSON.stringify({ token: tk}));
     navigate("/");
   };
 
