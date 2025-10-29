@@ -10,7 +10,7 @@ const Home = () => {
       <div className="flex flex-col items-center justify-center bg-gray-100">
         <div className="flex items-center w-full mb-2 mt-4  px-1 py-2 shadow-sm bg-white justify-end">
           <div className="hidden lg:flex flex-1 items-center space-x-4">
-            <a href="/addevent" className="flex items-center px-4 py-2 cursor-pointer bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
+            <a href="/#/addevent" className="flex items-center px-4 py-2 cursor-pointer bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
               <MdOutlineAdd className="mr-2" />
               Event
             </a>

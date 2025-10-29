@@ -4,14 +4,16 @@ import { useAuth } from "../Context/AuthContext";
 import Chargement from "./Chargement";
 
 const ProtectedRoute = () => {
-  const { token, loading } = useAuth(); // ou user, selon ton contexte
+  const { user, loading } = useAuth(); // ou user, selon ton contexte
   const location = useLocation();
+
+  console.log(user);
 
   if (loading) {
     return <Chargement />; // ou spinner
   }
 
-  if (!token) {
+  if (!user) {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 

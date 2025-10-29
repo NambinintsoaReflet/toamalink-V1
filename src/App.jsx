@@ -20,6 +20,8 @@ import { AuthProvider } from "./Context/AuthContext";
 // ⚠️ Singleton en dehors du composant
 const queryClient = new QueryClient();
 
+
+
 function App() {
   return (
     <HashRouter>
@@ -36,6 +38,7 @@ function App() {
               <Route element={<ProtectedRoute />}>
                 <Route path="/" element={<Layout />}>
                   <Route index element={<Home />} />
+                  <Route path="home" element={<Home />} />
                   {/* chemins RELATIFS car on est sous "/" */}
                   <Route path="addevent" element={<AddEvent />} />
                   <Route path="message" element={<Messages />} />

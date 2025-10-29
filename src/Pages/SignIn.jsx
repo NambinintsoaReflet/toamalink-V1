@@ -87,31 +87,60 @@ const Signin = () => {
     setError("");
 
     const user = {
-      firstName : firstName,
-      lastName:lastName
-    }
+      firstName: firstName,
+      lastName: lastName,
+    };
 
     console.log(user);
 
     try {
       setLoading(true);
-      // Vérifie le code et enregistre l’utilisateur côté backend
+
+      // 1. L'appel API retourne une promesse
       await api
         .post("/auth/register", {
-          first_name:firstName,
-          last_name:lastName,
+          first_name: firstName,
+          last_name: lastName,
           email,
           password,
-          adress:address,
+          adress: address,
           country: countryOfOrigin.value,
           code: verificationCode,
         })
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err.response.data));
+        // 2. Si la requête est un SUCCÈS (Statut 2xx), cette fonction est exécutée
+        .then((res) => {
+          console.log(res.data);
+          // C'est ici et SEULEMENT ici que la navigation doit être
+          navigate("/welcome");
+        })
+        // 3. Si la requête est un ÉCHEC (Statut 4xx ou 5xx), cette fonction est exécutée
+        .catch((err) => {
+          // Le message d'erreur est affiché à l'utilisateur
+          setError("Code incorrect ou inscription impossible. Réessayez.");
 
-      navigate("/welcome");
+          // Affiche les détails de l'erreur pour le développeur
+          console.log(err.response.data);
+
+          // IMPORTANT : Vous devez relancer l'erreur pour que le bloc
+          // 'catch' global puisse la capturer, ou simplement la gérer ici.
+          // Dans ce cas, nous la gérons ici.
+
+          // La ligne 'navigate("/welcome")' après le catch ne sera PAS exécutée
+          // si nous sortons de la fonction ou relançons l'erreur,
+          // mais le mieux est de la retirer complètement.
+
+          // Puisque nous gérons l'erreur ici, nous n'avons pas besoin de relancer l'erreur.
+        });
+
+      // 4. LIGNE SUPPRIMÉE : La navigation ne doit plus être ici !
+      // navigate("/welcome");
     } catch (err) {
-      setError("Code incorrect ou inscription impossible. Réessayez.");
+      // Ce catch ne gère que les erreurs de code JavaScript ou les erreurs non-HTTP
+      // (comme une erreur réseau avant même que la requête ne parte).
+      // Si le .catch() précédent ne s'est pas exécuté, cette ligne est un bon filet de sécurité.
+      // Elle est moins critique ici si le .catch() de l'API fait le travail.
+      // Nous pouvons la laisser telle quelle pour les erreurs imprévues.
+      setError("Une erreur inattendue est survenue.");
       console.log(err);
     } finally {
       setLoading(false);

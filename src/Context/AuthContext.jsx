@@ -43,7 +43,9 @@ export function AuthProvider({ children }) {
     setToken(tk);
     setAuthToken(tk);
     localStorage.setItem("auth", JSON.stringify({ token: tk}));
-    navigate("/");
+    // setLoading(true);
+    navigate("/home");
+    window.location.reload()
   };
 
   // Fonction de déconnexion
