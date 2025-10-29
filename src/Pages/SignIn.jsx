@@ -12,22 +12,22 @@ const Signin = () => {
 
   // Champs
   const [firstName, setFirstName] = useState("");
-  const [lastName,  setLastName]  = useState("");
-  const [email,     setEmail]     = useState("");
-  const [address,   setAddress]   = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
   const [countryOfOrigin, setCountryOfOrigin] = useState(null);
 
   // Password
-  const [password, setPassword]               = useState("");
+  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   // Vérification
   const [verificationCode, setVerificationCode] = useState("");
 
   // UI
-  const [error, setError]     = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [timer, setTimer]     = useState(60);
+  const [timer, setTimer] = useState(60);
   const intervalRef = useRef(null);
 
   // Pays
@@ -46,12 +46,15 @@ const Signin = () => {
   const validateStep1 = () => {
     const emailOk = /\S+@\S+\.\S+/.test(email);
     if (!emailOk) return "Veuillez entrer un email valide.";
-    if (!firstName.trim() || !lastName.trim()) return "Prénom et nom sont requis.";
+    if (!firstName.trim() || !lastName.trim())
+      return "Prénom et nom sont requis.";
     if (!address.trim()) return "L'adresse est requise.";
     if (!countryOfOrigin) return "Veuillez sélectionner votre pays d'origine.";
 
-    if (password.length < 8) return "Le mot de passe doit contenir au moins 8 caractères.";
-    if (password !== confirmPassword) return "Les mots de passe ne correspondent pas.";
+    if (password.length < 8)
+      return "Le mot de passe doit contenir au moins 8 caractères.";
+    if (password !== confirmPassword)
+      return "Les mots de passe ne correspondent pas.";
     return "";
   };
 
@@ -73,6 +76,7 @@ const Signin = () => {
       setFormStep(2);
     } catch (err) {
       setError("Échec d’envoi du code. Réessayez.");
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -82,22 +86,33 @@ const Signin = () => {
     e.preventDefault();
     setError("");
 
+    const user = {
+      firstName : firstName,
+      lastName:lastName
+    }
+
+    console.log(user);
+
     try {
       setLoading(true);
       // Vérifie le code et enregistre l’utilisateur côté backend
-      await api.post("/auth/register", {
-        firstName,
-        lastName,
-        email,
-        password,
-        address,
-        country: countryOfOrigin.value,
-        code: verificationCode,
-      });
+      await api
+        .post("/auth/register", {
+          first_name:firstName,
+          last_name:lastName,
+          email,
+          password,
+          adress:address,
+          country: countryOfOrigin.value,
+          code: verificationCode,
+        })
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err.response.data));
 
       navigate("/welcome");
     } catch (err) {
       setError("Code incorrect ou inscription impossible. Réessayez.");
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -120,10 +135,13 @@ const Signin = () => {
             {/* Colonne gauche (belle image/accroche) */}
             <div className="w-full h-auto bg-login hidden sm:block md:w-5/12 bg-cover rounded-2xl">
               <div className="flex flex-col items-center justify-center h-full p-8 rounded-2xl text-white text-center">
-                <h1 className="text-2xl">Connect, Share, and Thrive in Toamasina</h1>
+                <h1 className="text-2xl">
+                  Connect, Share, and Thrive in Toamasina
+                </h1>
                 <p className="text-base mt-2 max-w-2xl">
-                  Join a vibrant community of expatriates in Toamasina. Discover local events,
-                  share experiences, and access valuable resources to make your transition smoother.
+                  Join a vibrant community of expatriates in Toamasina. Discover
+                  local events, share experiences, and access valuable resources
+                  to make your transition smoother.
                 </p>
               </div>
             </div>
@@ -131,16 +149,24 @@ const Signin = () => {
             {/* Formulaire */}
             <div className="w-full max-w-sm lg:w-7/12 items-center lg:max-w-md text-black rounded-lg lg:rounded-l-none md:flex md:justify-center bg-white">
               <div className="w-full lg:w-sm">
-                <h3 className="py-4 pb-0 text-2xl text-center">Create an Account!</h3>
+                <h3 className="py-4 pb-0 text-2xl text-center">
+                  Create an Account!
+                </h3>
                 <div className="w-10 h-10 mt-1 flex justify-self-center p-1 border rounded-full border-[#a9a9a9] bg-white mx-auto shadow-xs">
                   <img src={logo} alt="ToamaLink" />
                 </div>
 
                 {formStep === 1 ? (
-                  <form onSubmit={handleInitialSubmit} className="px-8 pt-2 text-gray-800 rounded">
+                  <form
+                    onSubmit={handleInitialSubmit}
+                    className="px-8 pt-2 text-gray-800 rounded"
+                  >
                     <div className="mb-2 md:flex md:justify-between">
                       <div className="mb-4 md:mr-2 md:mb-0">
-                        <label className="block mb-2 text-sm font-bold" htmlFor="firstName">
+                        <label
+                          className="block mb-2 text-sm font-bold"
+                          htmlFor="firstName"
+                        >
                           First Name
                         </label>
                         <input
@@ -154,7 +180,10 @@ const Signin = () => {
                         />
                       </div>
                       <div className="md:ml-2">
-                        <label className="block mb-2 text-sm font-bold" htmlFor="lastName">
+                        <label
+                          className="block mb-2 text-sm font-bold"
+                          htmlFor="lastName"
+                        >
                           Last Name
                         </label>
                         <input
@@ -170,7 +199,10 @@ const Signin = () => {
                     </div>
 
                     <div className="mb-2">
-                      <label className="block mb-2 text-sm font-bold" htmlFor="email">
+                      <label
+                        className="block mb-2 text-sm font-bold"
+                        htmlFor="email"
+                      >
                         Email
                       </label>
                       <input
@@ -185,7 +217,10 @@ const Signin = () => {
                     </div>
 
                     <div className="mb-2">
-                      <label className="block mb-2 text-sm font-bold" htmlFor="address">
+                      <label
+                        className="block mb-2 text-sm font-bold"
+                        htmlFor="address"
+                      >
                         Adresse
                       </label>
                       <input
@@ -214,7 +249,10 @@ const Signin = () => {
 
                     <div className="md:flex md:justify-between">
                       <div className="mb-2 md:mr-2 md:mb-0">
-                        <label className="block mb-2 text-sm font-bold" htmlFor="password">
+                        <label
+                          className="block mb-2 text-sm font-bold"
+                          htmlFor="password"
+                        >
                           Password
                         </label>
                         <input
@@ -228,7 +266,10 @@ const Signin = () => {
                         />
                       </div>
                       <div className="md:ml-2">
-                        <label className="block mb-2 text-sm font-bold" htmlFor="c_password">
+                        <label
+                          className="block mb-2 text-sm font-bold"
+                          htmlFor="c_password"
+                        >
                           Confirm Password
                         </label>
                         <input
@@ -260,13 +301,20 @@ const Signin = () => {
                     </div>
                   </form>
                 ) : (
-                  <form onSubmit={handleVerificationSubmit} className="px-8 pt-6 pb-8 mb-4 text-gray-800 rounded">
+                  <form
+                    onSubmit={handleVerificationSubmit}
+                    className="px-8 pt-6 pb-8 mb-4 text-gray-800 rounded"
+                  >
                     <p className="text-xs text-center mb-4">
-                      A 4-digit verification code has been sent to your email: {email}
+                      A 4-digit verification code has been sent to your email:{" "}
+                      {email}
                     </p>
 
                     <div className="mb-2">
-                      <label className="block text-sm font-bold mb-2 text-gray-700" htmlFor="verificationCode">
+                      <label
+                        className="block text-sm font-bold mb-2 text-gray-700"
+                        htmlFor="verificationCode"
+                      >
                         Verification code
                       </label>
                       <input
@@ -276,7 +324,7 @@ const Signin = () => {
                         value={verificationCode}
                         onChange={(e) => setVerificationCode(e.target.value)}
                         required
-                        maxLength={4}
+                        maxLength={6}
                       />
                     </div>
 
@@ -298,7 +346,9 @@ const Signin = () => {
 
                     <div className="text-center mt-2">
                       {timer > 0 ? (
-                        <span className="text-gray-500 text-sm">Return in {timer}s</span>
+                        <span className="text-gray-500 text-sm">
+                          Return in {timer}s
+                        </span>
                       ) : (
                         <button
                           type="button"
@@ -313,7 +363,10 @@ const Signin = () => {
                     <div className="text-center mt-4">
                       <button
                         type="button"
-                        onClick={() => { setFormStep(1); setTimer(60); }}
+                        onClick={() => {
+                          setFormStep(1);
+                          setTimer(60);
+                        }}
                         className="text-sm text-blue-500 hover:text-blue-800"
                       >
                         Cancel
@@ -323,12 +376,18 @@ const Signin = () => {
                 )}
 
                 <div className="text-center mb-1">
-                  <a className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800" href="#">
+                  <a
+                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                    href="#"
+                  >
                     Forgot Password?
                   </a>
                 </div>
                 <div className="text-center">
-                  <Link className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800" to={"/login"}>
+                  <Link
+                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                    to={"/login"}
+                  >
                     Already have an account? Login!
                   </Link>
                 </div>

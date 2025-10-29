@@ -3,13 +3,17 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 
 const ProtectedRoute = () => {
-  const { token } = useAuth(); // ou user, selon ton contexte
+  const { token, user, loading } = useAuth(); // ou user, selon ton contexte
   const location = useLocation();
 
-  if (!token) {
-    // Redirige vers /login et garde l’endroit où on voulait aller
+  if (loading) {
+    return <p>Chargement...</p>; // ou spinner
+  }
+
+  if (!user) {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
+
   return <Outlet />;
 };
 

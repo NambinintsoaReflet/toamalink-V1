@@ -3,16 +3,13 @@ import { FiCamera } from "react-icons/fi";
 import { TiDelete } from "react-icons/ti";
 import { motion } from "framer-motion";
 import { RiImageAddFill } from "react-icons/ri";
+import { api } from "../api/axios";
 
 const AddEvent = () => {
   const [formData, setFormData] = useState({
-    title: "",
-    date: "",
-    time: "",
-    location: "",
-    description: "",
-    imageUrl: "",
-    category: "Food & Drink",
+    titre: "",
+    contenu: "",
+    image: "",
   });
 
   const fileInputRef = useRef(null);
@@ -27,43 +24,94 @@ const AddEvent = () => {
   };
 
   // 🔹 Upload image
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const image = URL.createObjectURL(file);
+  //     setFormData((prev) => ({
+  //       ...prev,
+  //       image,
+  //     }));
+  //   }
+  // };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setFormData((prev) => ({
-        ...prev,
-        imageUrl,
-      }));
-    }
+    setFormData({ ...formData, image: file });
   };
 
   // 🔹 Supprimer image
   const handleDeleteImage = () => {
     setFormData((prev) => ({
       ...prev,
-      imageUrl: "",
+      image: "",
     }));
     fileInputRef.current.value = null;
   };
 
   // 🔹 Soumission
-  const handleSubmit = (e) => {
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   console.log("✅ Publication :", formData);
+
+  //   try {
+  //     // Envoi correct des données
+  //     const res = await api.post("/publications", formData);
+  //     console.log(res.data);
+
+  //     // Réinitialiser le formulaire
+  //     setFormData({
+  //       titre: "",
+  //       contenu: "",
+  //       image: "",
+  //     });
+  //     fileInputRef.current.value = null;
+  //   } catch (err) {
+  //     if (err.response && err.response.status === 422) {
+  //       console.error("Erreurs de validation :", err.response.data.errors);
+  //       alert(JSON.stringify(err.response.data.errors));
+  //     } else {
+  //       console.error(err);
+  //     }
+  //   }
+  // };
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("✅ Publication :", formData);
-    // Réinitialiser le formulaire
-    setFormData({
-      title: "",
-      date: "",
-      time: "",
-      location: "",
-      description: "",
-      imageUrl: "",
-      category: "Food & Drink",
-    });
-    fileInputRef.current.value = null;
-    //navigate to home or event page
-    window.location.href = "/";
+
+    try {
+      // Créer un vrai FormData pour envoi multipart
+      const data = new FormData();
+      data.append("titre", formData.titre);
+      data.append("contenu", formData.contenu);
+      if (formData.image) {
+        data.append("image", formData.image); // ← fichier binaire
+      }
+
+      // Envoi vers Laravel
+      const res = await api.post("/publications", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log(res.data);
+      alert("✅ Publication ajoutée avec succès !");
+
+      // Réinitialiser le formulaire
+      setFormData({
+        titre: "",
+        contenu: "",
+        image: "",
+      });
+      fileInputRef.current.value = null;
+    } catch (err) {
+      if (err.response && err.response.status === 422) {
+        console.error("Erreurs de validation :", err.response.data.errors);
+        alert(JSON.stringify(err.response.data.errors));
+      } else {
+        console.error(err);
+      }
+    }
   };
 
   return (
@@ -86,8 +134,8 @@ const AddEvent = () => {
             <label className="block text-gray-700">Titre</label>
             <input
               type="text"
-              name="title"
-              value={formData.title}
+              name="titre"
+              value={formData.titre}
               onChange={handleChange}
               required
               placeholder="Titre de l'événement"
@@ -95,52 +143,14 @@ const AddEvent = () => {
             />
           </div>
 
-          {/* Date & Heure */}
-          <div className="flex gap-4">
-            <div className="flex-1">
-              <label className="block text-gray-700">Date</label>
-              <input
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                className="w-full px-3 py-2 text-gray-500 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </div>
-            <div className="flex-1">
-              <label className="block text-gray-700">Heure</label>
-              <input
-                type="time"
-                name="time"
-                value={formData.time}
-                onChange={handleChange}
-                className="w-full px-3 py-2  border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </div>
-          </div>
-
-          {/* Lieu */}
+          {/* contenu */}
           <div>
-            <label className="block text-gray-700">Lieu</label>
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              placeholder="Lieu de l'événement"
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-            />
-          </div>
-
-          {/* Description */}
-          <div>
-            <label className="block text-gray-700">Description</label>
+            <label className="block text-gray-700">contenu</label>
             <textarea
-              name="description"
+              name="contenu"
               rows="2"
-              value={formData.description}
+              value={formData.contenu}
               onChange={handleChange}
-      
               placeholder="Décrivez votre événement..."
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
             ></textarea>
@@ -149,7 +159,7 @@ const AddEvent = () => {
           {/* Upload image */}
           <div>
             <label className="block text-gray-700 mb-1">Image</label>
-            {formData.imageUrl ? (
+            {formData.image ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -157,7 +167,7 @@ const AddEvent = () => {
               >
                 <img
                   className="w-36 h-24 object-cover rounded-lg shadow"
-                  src={formData.imageUrl}
+                  src={formData.image}
                   alt="preview"
                 />
                 <button

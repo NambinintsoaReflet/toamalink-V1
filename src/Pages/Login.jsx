@@ -12,8 +12,7 @@ const Login = () => {
 
   const { mutate, isPending, error } = useMutation({
     mutationFn: async () => {
-      const { data } = await api.post("/auth/login", { email, password });
-      // attendu: { token: "xxx", user: { id, name, email } }
+      const { data } = await api.post("/login", { email, password });
       return data;
     },
     onSuccess: (data) => {
