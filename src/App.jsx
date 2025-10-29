@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./Pages/Layout";
 import MenuContextProvider from "./Context/MenuContext/Provider";
@@ -22,7 +22,7 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
           <MenuContextProvider>
@@ -50,7 +50,7 @@ function App() {
           </MenuContextProvider>
         </QueryClientProvider>
       </AuthProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
