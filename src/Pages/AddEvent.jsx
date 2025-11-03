@@ -58,7 +58,7 @@ const AddEvent = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      console.log(res.data);
+      // console.log(res.data);
       alert("✅ Publication publié avec succès !");
       navigate("/home");
 

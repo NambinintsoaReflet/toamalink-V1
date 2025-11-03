@@ -46,7 +46,7 @@ export default function ModalForm() {
   // 🔹 Soumettre le formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Formulaire soumis ✅", formData);
+    // console.log("Formulaire soumis ✅", formData);
     // Ici tu peux envoyer les données à ton API
   };
   return (

@@ -1,0 +1,23 @@
+{
+  "login_title": "在Toamasina连接、分享并茁壮成长",
+  "login_description": "加入图阿马西纳充满活力的外籍人士社区。探索当地活动，分享经验，并获取宝贵资源，让您的过渡更加顺利、更加充实",
+  "email": "邮箱",
+  "email_placeholder": "请输入您的邮箱",
+  "password_placeholder": "请输入您的密码",
+  "password": "密码",
+  "login_button": "登录",
+  "login_loading": "正在登录...",
+  "forgot_password": "忘记密码？",
+  "signin_link": "还没有账号？注册！",
+  "register_title": "创建账户！",
+  "first_name": "名",
+  "last_name": "姓",
+  "address": "地址",
+  "address_placeholder":"您的地址",
+  "country": "原籍国",
+  "country_placeholder" :"选择您的国家",
+  "confirm_password": "确认密码",
+  "register_button": "注册账户",
+  "register_loading": "处理中...",
+  "login_link":"已经有账号？ 登录！"
+}

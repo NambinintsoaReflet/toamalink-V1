@@ -1,0 +1,23 @@
+{
+  "login_title": "Connectez-vous, Partagez et Prospérez à Toamasina",
+  "login_description": "Rejoignez une communauté dynamique d'expatriés à Toamasina. Découvrez des événements locaux, partagez des expériences et accédez à des ressources précieuses pour rendre votre transition plus fluide et plus enrichissante.",
+  "email": "E-mail",
+  "email_placeholder": "Veuillez saisir votre e-mail",
+  "password_placeholder": "Veuillez saisir votre mot de passe",
+  "password": "Mot de passe",
+  "login_button": "Se connecter",
+  "login_loading": "Connexion en cours...",
+  "forgot_password": "Mot de passe oublié ?",
+  "signin_link": "Pas encore de compte ? S'inscrire !",
+  "register_title": "Créer un compte !",
+  "first_name": "Prénom",
+  "last_name": "Nom de famille",
+  "address": "Adresse",
+  "address_placeholder": "Votre adresse",
+  "country": "Pays d'origine",
+  "country_placeholder": "Sélectionner votre pays",
+  "confirm_password": "Confirme mot de passe",
+  "register_button": "Créer le compte",
+  "register_loading": "Traitement en cours...",
+  "login_link": "Déjà un compte ? Se connecter !"
+}

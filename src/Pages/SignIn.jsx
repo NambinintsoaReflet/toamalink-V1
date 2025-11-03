@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import countryList from "react-select-country-list";
 import Select from "react-select";
 import { api } from "../api/axios";
+import { useTranslation } from "react-i18next";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -42,6 +43,10 @@ const Signin = () => {
       return () => clearInterval(intervalRef.current);
     }
   }, [formStep, timer]);
+
+  //translation
+  // translation
+  const { t } = useTranslation();
 
   const validateStep1 = () => {
     const emailOk = /\S+@\S+\.\S+/.test(email);
@@ -107,39 +112,17 @@ const Signin = () => {
           country: countryOfOrigin.value,
           code: verificationCode,
         })
-        // 2. Si la requête est un SUCCÈS (Statut 2xx), cette fonction est exécutée
+
         .then((res) => {
           console.log(res.data);
-          // C'est ici et SEULEMENT ici que la navigation doit être
           navigate("/welcome");
         })
-        // 3. Si la requête est un ÉCHEC (Statut 4xx ou 5xx), cette fonction est exécutée
         .catch((err) => {
-          // Le message d'erreur est affiché à l'utilisateur
           setError("Code incorrect ou inscription impossible. Réessayez.");
 
-          // Affiche les détails de l'erreur pour le développeur
           console.log(err.response.data);
-
-          // IMPORTANT : Vous devez relancer l'erreur pour que le bloc
-          // 'catch' global puisse la capturer, ou simplement la gérer ici.
-          // Dans ce cas, nous la gérons ici.
-
-          // La ligne 'navigate("/welcome")' après le catch ne sera PAS exécutée
-          // si nous sortons de la fonction ou relançons l'erreur,
-          // mais le mieux est de la retirer complètement.
-
-          // Puisque nous gérons l'erreur ici, nous n'avons pas besoin de relancer l'erreur.
         });
-
-      // 4. LIGNE SUPPRIMÉE : La navigation ne doit plus être ici !
-      // navigate("/welcome");
     } catch (err) {
-      // Ce catch ne gère que les erreurs de code JavaScript ou les erreurs non-HTTP
-      // (comme une erreur réseau avant même que la requête ne parte).
-      // Si le .catch() précédent ne s'est pas exécuté, cette ligne est un bon filet de sécurité.
-      // Elle est moins critique ici si le .catch() de l'API fait le travail.
-      // Nous pouvons la laisser telle quelle pour les erreurs imprévues.
       setError("Une erreur inattendue est survenue.");
       console.log(err);
     } finally {
@@ -164,13 +147,9 @@ const Signin = () => {
             {/* Colonne gauche (belle image/accroche) */}
             <div className="w-full h-auto bg-login hidden sm:block md:w-5/12 bg-cover rounded-2xl">
               <div className="flex flex-col items-center justify-center h-full p-8 rounded-2xl text-white text-center">
-                <h1 className="text-2xl">
-                  Connect, Share, and Thrive in Toamasina
-                </h1>
+                <h1 className="text-2xl">{t("login_title")}</h1>
                 <p className="text-base mt-2 max-w-2xl">
-                  Join a vibrant community of expatriates in Toamasina. Discover
-                  local events, share experiences, and access valuable resources
-                  to make your transition smoother.
+                  {t("login_description")}
                 </p>
               </div>
             </div>
@@ -179,7 +158,7 @@ const Signin = () => {
             <div className="w-full max-w-sm lg:w-7/12 items-center lg:max-w-md text-black rounded-lg lg:rounded-l-none md:flex md:justify-center bg-white">
               <div className="w-full lg:w-sm">
                 <h3 className="py-4 pb-0 text-2xl text-center">
-                  Create an Account!
+                  {t("register_title")}
                 </h3>
                 <div className="w-10 h-10 mt-1 flex justify-self-center p-1 border rounded-full border-[#a9a9a9] bg-white mx-auto shadow-xs">
                   <img src={logo} alt="ToamaLink" />
@@ -196,13 +175,13 @@ const Signin = () => {
                           className="block mb-2 text-sm font-bold"
                           htmlFor="firstName"
                         >
-                          First Name
+                          {t("first_name")}
                         </label>
                         <input
                           id="firstName"
                           className="w-full px-3 py-2 text-sm leading-tight border border-gray-400 rounded focus:outline-none focus:shadow-outline"
                           type="text"
-                          placeholder="First Name"
+                          placeholder={t("first_name")}
                           value={firstName}
                           onChange={(e) => setFirstName(e.target.value)}
                           required
@@ -213,13 +192,13 @@ const Signin = () => {
                           className="block mb-2 text-sm font-bold"
                           htmlFor="lastName"
                         >
-                          Last Name
+                          {t("last_name")}
                         </label>
                         <input
                           id="lastName"
                           className="w-full px-3 py-2 text-sm leading-tight border border-gray-400 rounded focus:outline-none focus:shadow-outline"
                           type="text"
-                          placeholder="Last Name"
+                          placeholder={t("last_name")}
                           value={lastName}
                           onChange={(e) => setLastName(e.target.value)}
                           required
@@ -232,13 +211,13 @@ const Signin = () => {
                         className="block mb-2 text-sm font-bold"
                         htmlFor="email"
                       >
-                        Email
+                        {t("email")}
                       </label>
                       <input
                         id="email"
                         className="w-full px-3 py-2 text-sm leading-tight border border-gray-400 rounded focus:outline-none focus:shadow-outline"
                         type="email"
-                        placeholder="Email"
+                        placeholder={t("email")}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -250,13 +229,13 @@ const Signin = () => {
                         className="block mb-2 text-sm font-bold"
                         htmlFor="address"
                       >
-                        Adresse
+                        {t("address")}
                       </label>
                       <input
                         id="address"
                         className="w-full px-3 py-2 text-sm leading-tight border border-gray-400 rounded focus:outline-none focus:shadow-outline"
                         type="text"
-                        placeholder="Votre adresse"
+                        placeholder={t("address_placeholder")}
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                         required
@@ -265,14 +244,13 @@ const Signin = () => {
 
                     <div className="mb-2">
                       <label className="block mb-2 text-sm font-bold">
-                        Pays d'origine
+                        {t("country")}
                       </label>
                       <Select
                         options={options}
                         value={countryOfOrigin}
                         onChange={setCountryOfOrigin}
-                        placeholder="Sélectionnez votre pays"
-                        // required ne marche pas ici → validation manuelle
+                        placeholder={t("country_placeholder")}
                       />
                     </div>
 
@@ -282,13 +260,13 @@ const Signin = () => {
                           className="block mb-2 text-sm font-bold"
                           htmlFor="password"
                         >
-                          Password
+                          {t("password")}
                         </label>
                         <input
                           id="password"
                           className="w-full px-3 py-2 mb-3 text-sm leading-tight border border-gray-400 rounded focus:outline-none focus:shadow-outline"
                           type="password"
-                          placeholder="Password"
+                          placeholder={t("password")}
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           required
@@ -299,13 +277,13 @@ const Signin = () => {
                           className="block mb-2 text-sm font-bold"
                           htmlFor="c_password"
                         >
-                          Confirm Password
+                          {t("confirm_password")}
                         </label>
                         <input
                           id="c_password"
                           className="w-full px-3 py-2 mb-3 text-sm leading-tight border border-gray-400 rounded focus:outline-none focus:shadow-outline"
                           type="password"
-                          placeholder="Confirm Password"
+                          placeholder={t("confirm_password")}
                           value={confirmPassword}
                           onChange={(e) => setConfirmPassword(e.target.value)}
                           required
@@ -325,7 +303,7 @@ const Signin = () => {
                         type="submit"
                         disabled={loading}
                       >
-                        {loading ? "Processing..." : "Register Account"}
+                      {loading ? t('register_loading') : t('register_button')}
                       </button>
                     </div>
                   </form>
@@ -409,7 +387,7 @@ const Signin = () => {
                     className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
                     href="#"
                   >
-                    Forgot Password?
+                    {t("forgot_password")}
                   </a>
                 </div>
                 <div className="text-center">
@@ -417,7 +395,7 @@ const Signin = () => {
                     className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
                     to={"/login"}
                   >
-                    Already have an account? Login!
+                   {t("login_link")}
                   </Link>
                 </div>
               </div>

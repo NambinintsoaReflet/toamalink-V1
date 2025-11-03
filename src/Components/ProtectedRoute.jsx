@@ -7,7 +7,7 @@ const ProtectedRoute = () => {
   const { user, loading } = useAuth(); // ou user, selon ton contexte
   const location = useLocation();
 
-  console.log(user);
+  // console.log(user);
 
   if (loading) {
     return <Chargement />; // ou spinner

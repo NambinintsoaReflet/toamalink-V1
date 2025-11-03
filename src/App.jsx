@@ -1,5 +1,6 @@
 import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import "./i18n"; 
 import Layout from "./Pages/Layout";
 import MenuContextProvider from "./Context/MenuContext/Provider";
 import Home from "./Pages/Home";

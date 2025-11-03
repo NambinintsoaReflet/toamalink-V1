@@ -1,0 +1,23 @@
+{
+  "login_title": "Vernetzen, Teilen und Entfalten in Toamasina",
+  "login_description": "Treten Sie einer lebendigen Gemeinschaft von Expats in Toamasina bei. Entdecken Sie lokale Veranstaltungen, tauschen Sie Erfahrungen aus und erhalten Sie wertvolle Ressourcen, um Ihren Übergang reibungsloser und lohnender zu gestalten.",
+  "email": "E-Mail",
+  "email_placeholder": "Geben Sie Ihre E-Mail-Adresse ein",
+  "password_placeholder": "Geben Sie Ihr Passwort ein",
+  "password": "Passwort",
+  "login_button": "Anmelden",
+  "login_loading": "Melde mich an...",
+  "forgot_password": "Passwort vergessen?",
+  "signin_link": "Sie haben noch kein Konto? Registrieren!",
+  "register_title": "Konto erstellen!",
+  "first_name": "Vorname",
+  "last_name": "Nachname",
+  "address": "Adresse",
+  "address_placeholder": "Ihre Adresse",
+  "country": "Heimatland",
+  "country_placeholder": "Wählen Sie Ihr Land aus",
+  "confirm_password": "Passwort bestätigen",
+  "register_button": "Konto registrieren",
+  "register_loading": "Wird verarbeitet...",
+  "login_link": "Haben Sie bereits ein Konto? Anmelden!"
+}
