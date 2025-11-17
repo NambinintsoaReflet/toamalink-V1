@@ -23,7 +23,7 @@ const Layout = () => {
               {NavWeb.map(({ href, label, icon, nb }) => (
                 <li
                   key={href}
-                  className={`flex items-center justify-between p-2 px-3 rounded-sm transition-colors ${
+                  className={`flex items-center font-thin justify-between p-2 px-3 rounded-sm transition-colors ${
                     (
                       href === "/"
                         ? pathname === href
@@ -33,9 +33,10 @@ const Layout = () => {
                       : "hover:text-blue-600"
                   }`}
                 >
-                  <Link to={href} className="flex">
+                  <Link to={href} className="flex font-thin">
                     {icon}
-                    {label}
+                    <label htmlFor="" className="font-thin">{label}</label>
+                    
                   </Link>
                   <div className="ml-2 bg-red-600 rounded-2xl text-white px-2 text-sm">
                     {nb}
