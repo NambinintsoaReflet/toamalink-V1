@@ -16,11 +16,21 @@ const Login = () => {
 
   const { mutate, isPending, error } = useMutation({
     mutationFn: async () => {
-      const { data } = await api.post("/login", { email, password });
-      return data;
+      try {
+        const { data } = await api.post("/login", { email, password });
+        return data;
+      } catch (err) {
+        // On relance l’erreur pour que React Query la capture
+        throw err.response?.data?.message || "Erreur de connexion";
+      }
     },
+
     onSuccess: (data) => {
       login(data.token, data.user);
+    },
+
+    onError: (err) => {
+      console.error("Erreur lors de la connexion :", err);
     },
   });
 
@@ -80,6 +90,7 @@ const Login = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       type="email"
                       placeholder={t("email_placeholder")}
+                      required
                     />
                   </div>
                   <div className="mb-4">
@@ -96,6 +107,7 @@ const Login = () => {
                       onChange={(e) => setPassword(e.target.value)}
                       type="password"
                       placeholder={t("password_placeholder")}
+                      required
                     />
                   </div>
                   <div className="mb-6 text-center">
@@ -123,7 +135,7 @@ const Login = () => {
                       className="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
                       to={"/signin"}
                     >
-                     {t("signin_link")}
+                      {t("signin_link")}
                     </Link>
                   </div>
                 </form>
