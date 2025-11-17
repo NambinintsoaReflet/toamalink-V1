@@ -1,14 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiMail } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import { api } from "../api/axios";
+import { useAuth } from "../Context/AuthContext";
 
 export default function Messages() {
+  const [users, setUsers] = useState([]);
+  const userId = useAuth();
   const navigate = useNavigate();
-  const [conversations] = useState([
-    { id: 1, name: "Sarah", lastMessage: "Salut, comment tu vas ?", time: "2 min", unread: true },
-    { id: 2, name: "Jean", lastMessage: "On se voit demain 👍", time: "10 min", unread: false },
-    { id: 3, name: "Lisa", lastMessage: "Ok, merci pour l’info !", time: "1h", unread: false },
-  ]);
+
+  // Charger les conversations + dernier message
+  const fetchDiscussion = async () => {
+    try {
+      const { data } = await api.post("/users-with-last-message", {
+        user_id: userId.userId,
+      });
+
+      setUsers(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error("Erreur lors du chargement :", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchDiscussion();
+  }, []);
 
   return (
     <div className="container mx-auto p-4">
@@ -21,7 +37,7 @@ export default function Messages() {
 
       {/* Liste des conversations */}
       <div className="bg-white rounded-2xl shadow-md divide-y">
-        {conversations.map((c) => (
+        {users.map((c) => (
           <div
             key={c.id}
             onClick={() => navigate(`/message/${c.id}`)}
@@ -30,12 +46,24 @@ export default function Messages() {
             }`}
           >
             <div>
-              <p className={`font-medium ${c.unread ? "text-gray-900" : "text-gray-700"}`}>
-                {c.name}
+              <p
+                className={`font-medium ${
+                  c.unread ? "text-gray-900" : "text-gray-700"
+                }`}
+              >
+                {c.last_name} {c.first_name}
               </p>
-              <p className="text-sm text-gray-500 truncate">{c.lastMessage}</p>
+
+              <p className="text-sm text-gray-500 truncate">
+                {c.lastMessage ?? "Pas de message"}
+              </p>
             </div>
-            <div className="text-xs text-gray-400">{c.time}</div>
+
+            <div className="text-xs text-gray-400">
+              {c.lastMessageTime
+                ? c.lastMessageTime
+                : ""}
+            </div>
           </div>
         ))}
       </div>

@@ -313,7 +313,7 @@ const Signin = () => {
                     className="px-8 pt-6 pb-8 mb-4 text-gray-800 rounded"
                   >
                     <p className="text-xs text-center mb-4">
-                      A 4-digit verification code has been sent to your email:{" "}
+                      {t("text_verif")}
                       {email}
                     </p>
 
@@ -322,7 +322,7 @@ const Signin = () => {
                         className="block text-sm font-bold mb-2 text-gray-700"
                         htmlFor="verificationCode"
                       >
-                        Verification code
+                        {t("verif_code")}
                       </label>
                       <input
                         id="verificationCode"

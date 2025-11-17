@@ -19,5 +19,8 @@
   "confirm_password": "Confirm Password",
   "register_button": "Register Account",
   "register_loading": "Processing...",
-  "login_link": "Already have an account? Log In!"
+  "login_link": "Already have an account? Log In!",
+
+  "text_verif" : "A 4-digit verification code has been sent to your email :",
+  "verif_code" : "Verification code"
 }

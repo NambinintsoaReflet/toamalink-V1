@@ -45,7 +45,7 @@ const Login = () => {
                   <select
                     onChange={(e) => i18n.changeLanguage(e.target.value)}
                     defaultValue={i18n.language}
-                    className="border border-gray-400 rounded px-2 py-1"
+                    className="border border-gray-400 rounded px-2 py-1 outline-none border-none"
                   >
                     <option value="en">🇬🇧 English</option>
                     <option value="fr">🇫🇷 Français</option>

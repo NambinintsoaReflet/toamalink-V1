@@ -25,7 +25,7 @@ const EventCard = ({ event, currentUserId }) => {
 
           <span className="flex flex-col text-gray-600 text-xs">
             <strong className="text-base">{publisherName}</strong>
-            <span>{createdAtLabel}</span>
+            <span>{event.timeAgo}</span>
           </span>
         </div>
         <SlOptionsVertical className="cursor-pointer text-gray-700" />

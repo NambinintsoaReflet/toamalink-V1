@@ -13,6 +13,7 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [userId, setuserId] = useState();
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -30,8 +31,13 @@ export function AuthProvider({ children }) {
 
       // Charger le user depuis le back avec le token
       getCurrentUser()
-        .then((u) => setUser(u.last_name))
+        .then((user) => {
+          setUser(user.last_name); // Met à jour le nom de l'utilisateur
+          setuserId(user.id);     // Met à jour l'ID de l'utilisateur
+        })
         .finally(() => setLoading(false));
+
+    
     } else {
       setLoading(false);
     }
@@ -42,10 +48,10 @@ export function AuthProvider({ children }) {
     setUser(usr);
     setToken(tk);
     setAuthToken(tk);
-    localStorage.setItem("auth", JSON.stringify({ token: tk}));
+    localStorage.setItem("auth", JSON.stringify({ token: tk }));
     // setLoading(true);
     navigate("/home");
-    window.location.reload()
+    window.location.reload();
   };
 
   // Fonction de déconnexion
@@ -58,8 +64,8 @@ export function AuthProvider({ children }) {
   };
 
   const value = useMemo(
-    () => ({ user, token, login, logout, loading }),
-    [user, token, loading]
+    () => ({ user, userId, token, login, logout, loading }),
+    [user, token, loading, userId]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
