@@ -38,34 +38,91 @@ export default function Discussion() {
   }, [id]);
 
   // Charger les messages et écouter Echo
+  // useEffect(() => {
+  //   if (!id || !userId) return;
+
+  //   // Charger l'historique
+  //   api
+  //     .post("/messages", { user_id: userId, receiver_id: id })
+  //     .then((res) => setMessages(res.data));
+
+  //   // Écoute Echo
+  //   if (window.Echo) {
+  //     const channelName = `chat.${userId}`;
+  //     const channel = window.Echo.channel(channelName);
+
+  //     const listener = (data) => {
+  //       if (data.message.sender_id.toString() === id.toString()) {
+  //         setMessages((prev) => [...prev, data.message]);
+  //       }
+  //     };
+
+  //     channel.listen("MessageSent", listener);
+
+  //     return () => {
+  //       window.Echo.leave(channelName);
+  //     };
+  //   }
+  // }, [id, userId]);
+
   useEffect(() => {
     if (!id || !userId) return;
 
-    console.log("l'envoyeur", userId);
+    // --- 1. FONCTION DE CHARGEMENT ---
+    const fetchMessages = () => {
+        api
+            .post("/messages", { user_id: userId, receiver_id: id })
+            .then((res) => {
+                // Mettre à jour l'état seulement si la requête réussit
+                setMessages(res.data);
+            })
+            .catch(error => console.error("Erreur lors du rafraîchissement:", error));
+    };
 
-    // Charger l'historique
-    api
-      .post("/messages", { user_id: userId, receiver_id: id })
-      .then((res) => setMessages(res.data));
+    // --- 2. CHARGEMENT INITIAL ---
+    fetchMessages();
 
-    // Écoute Echo
+    // --- 3. MISE EN PLACE DE L'INTERVALLE DE 5 SECONDES ---
+    const intervalId = setInterval(() => {
+        fetchMessages();
+    }, 5000); // 5000 millisecondes = 5 secondes
+
+    // --- 4. NETTOYAGE (TRÈS IMPORTANT !) ---
+    // Cette fonction de nettoyage est appelée lorsque le composant est démonté
+    // ou avant que l'effet ne soit réexécuté (si les dépendances changent).
+    // Elle stoppe l'intervalle pour éviter les fuites de mémoire.
+    const cleanupInterval = () => {
+        clearInterval(intervalId);
+    };
+
+    // --- 5. Écoute Echo (VOTRE CODE ORIGINAL) ---
     if (window.Echo) {
-      const channelName = `chat.${userId}`;
-      const channel = window.Echo.channel(channelName);
+        const channelName = `chat.${userId}`;
+        const channel = window.Echo.channel(channelName);
 
-      const listener = (data) => {
-        if (data.message.sender_id.toString() === id.toString()) {
-          setMessages((prev) => [...prev, data.message]);
-        }
-      };
+        const listener = (data) => {
+            if (data.message.sender_id.toString() === id.toString()) {
+                setMessages((prev) => [...prev, data.message]);
+            }
+        };
 
-      channel.listen("MessageSent", listener);
+        channel.listen("MessageSent", listener);
 
-      return () => {
-        window.Echo.leave(channelName);
-      };
+        const cleanupEcho = () => {
+            window.Echo.leave(channelName);
+        };
+        
+        // La fonction de nettoyage doit appeler les deux nettoyages
+        return () => {
+            cleanupInterval();
+            cleanupEcho();
+        };
     }
-  }, [id, userId]);
+    
+    // Si Echo n'existe pas, on retourne seulement le nettoyage de l'intervalle
+    return cleanupInterval;
+
+}, [id, userId]);
 
   // Envoyer un message
   const sendMessage = () => {
@@ -138,13 +195,13 @@ export default function Discussion() {
           onKeyDown={handleKeyPress}
           placeholder="Écrire un message..."
           className="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
-          disabled={!selectedUser}
+          // disabled={!selectedUser}
         />
 
         <button
           onClick={sendMessage}
           className="p-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition disabled:opacity-50"
-          disabled={!text.trim() || !selectedUser}
+          // disabled={!text.trim() || !selectedUser}
         >
           <CiPaperplane className="text-xl" />
         </button>

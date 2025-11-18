@@ -45,7 +45,7 @@ export const NavWeb = [
     href: "/message",
     label: "Message",
     icon: <RiDiscussFill className="text-2xl mr-2" />,
-    nb: 3, // Example message count
+  
   },
   {
     href: "/notifications",
