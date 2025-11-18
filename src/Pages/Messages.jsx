@@ -6,31 +6,35 @@ import { useAuth } from "../Context/AuthContext";
 
 export default function Messages() {
   const [users, setUsers] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // 1. Nouvel état pour le chargement
-  const userId = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+  const { userId } = useAuth(); // Déstructurez directement l'ID de l'objet retourné
   const navigate = useNavigate();
 
   // Charger les conversations + dernier message
   const fetchDiscussion = async () => {
-    setIsLoading(true); // 2. Début du chargement
+    // Si l'ID utilisateur n'est pas prêt, on arrête la requête
+    if (!userId) return; 
+    
+    setIsLoading(true);
 
     try {
       const { data } = await api.post("/users-with-last-message", {
-        user_id: userId.userId,
+        user_id: userId,
       });
 
       setUsers(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Erreur lors du chargement :", err);
-      // Optionnel : Gérer l'affichage d'une erreur à l'utilisateur
     } finally {
-      setIsLoading(false); // 3. Fin du chargement (que l'appel réussisse ou échoue)
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
+    // 💡 Déclenche fetchDiscussion lorsque le composant monte
+    // et si l'ID utilisateur change (ce qui est rare après le montage, mais assure la cohérence)
     fetchDiscussion();
-  }, []);
+  }, [userId]); // AJOUTÉ : Ajout de userId comme dépendance
 
   return (
     <div className="container mx-auto p-4">
@@ -41,7 +45,6 @@ export default function Messages() {
         </h1>
       </div>
 
-      {/* 4. Affichage du chargement conditionnel */}
       <div className="bg-white rounded-2xl shadow-md divide-y">
         {isLoading ? (
           <div className="p-6 text-center text-lg text-blue-500">
