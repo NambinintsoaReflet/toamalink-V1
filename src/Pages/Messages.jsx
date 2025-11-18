@@ -6,11 +6,14 @@ import { useAuth } from "../Context/AuthContext";
 
 export default function Messages() {
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // 1. Nouvel état pour le chargement
   const userId = useAuth();
   const navigate = useNavigate();
 
   // Charger les conversations + dernier message
   const fetchDiscussion = async () => {
+    setIsLoading(true); // 2. Début du chargement
+
     try {
       const { data } = await api.post("/users-with-last-message", {
         user_id: userId.userId,
@@ -19,6 +22,9 @@ export default function Messages() {
       setUsers(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Erreur lors du chargement :", err);
+      // Optionnel : Gérer l'affichage d'une erreur à l'utilisateur
+    } finally {
+      setIsLoading(false); // 3. Fin du chargement (que l'appel réussisse ou échoue)
     }
   };
 
@@ -35,37 +41,46 @@ export default function Messages() {
         </h1>
       </div>
 
-      {/* Liste des conversations */}
+      {/* 4. Affichage du chargement conditionnel */}
       <div className="bg-white rounded-2xl shadow-md divide-y">
-        {users.map((c) => (
-          <div
-            key={c.id}
-            onClick={() => navigate(`/message/${c.id}`)}
-            className={`flex justify-between items-center p-4 cursor-pointer hover:bg-gray-50 ${
-              c.unread ? "bg-blue-50" : "bg-white"
-            }`}
-          >
-            <div>
-              <p
-                className={`font-medium ${
-                  c.unread ? "text-gray-900" : "text-gray-700"
-                }`}
-              >
-                {c.last_name} {c.first_name}
-              </p>
-
-              <p className="text-sm text-gray-500 truncate">
-                {c.lastMessage ?? "Pas de message"}
-              </p>
-            </div>
-
-            <div className="text-xs text-gray-400">
-              {c.lastMessageTime
-                ? c.lastMessageTime
-                : ""}
-            </div>
+        {isLoading ? (
+          <div className="p-6 text-center text-lg text-blue-500">
+            Chargement des conversations...
           </div>
-        ))}
+        ) : users.length === 0 ? (
+          <div className="p-6 text-center text-gray-500">
+            Aucune conversation trouvée.
+          </div>
+        ) : (
+          /* Liste des conversations */
+          users.map((c) => (
+            <div
+              key={c.id}
+              onClick={() => navigate(`/message/${c.id}`)}
+              className={`flex justify-between items-center p-4 cursor-pointer hover:bg-gray-50 ${
+                c.unread ? "bg-blue-50" : "bg-white"
+              }`}
+            >
+              <div>
+                <p
+                  className={`font-medium ${
+                    c.unread ? "text-gray-900" : "text-gray-700"
+                  }`}
+                >
+                  {c.last_name} {c.first_name}
+                </p>
+
+                <p className="text-sm text-gray-500 truncate">
+                  {c.lastMessage ?? "Pas de message"}
+                </p>
+              </div>
+
+              <div className="text-xs text-gray-400">
+                {c.lastMessageTime ? c.lastMessageTime : ""}
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

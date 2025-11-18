@@ -46,7 +46,7 @@ const Layout = () => {
             </ul>
           </aside>
 
-          <div className="bg-white lg:ml-80 w-200 no-scrollbar overflow-y-scroll h-auto lg:mt-1">
+          <div className="bg-white pt-2 lg:ml-80 w-200 no-scrollbar overflow-y-scroll h-auto lg:mt-1">
             <Outlet />
           </div>
 

@@ -4,10 +4,12 @@ import { RiMessage2Line } from "react-icons/ri";
 import { IoMailUnreadOutline } from "react-icons/io5";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import { api } from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const PersonList = () => {
   const [expats, setExpats] = useState([]); // ← tableau au lieu de null
   const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
   // Charger les utilisateurs sauf celui connecté
   const fetchExpats = async () => {
@@ -54,9 +56,13 @@ const PersonList = () => {
               </div>
 
               <div className="flex items-center space-x-2">
-                <FaWhatsapp className="w-7 h-7 p-1 rounded-2xl text-emerald-600 bg-gray-200 hover:bg-emerald-600 hover:text-white cursor-pointer" />
-                <RiMessage2Line className="w-7 h-7 p-1 rounded-2xl text-emerald-600 bg-gray-200 hover:bg-emerald-600 hover:text-white cursor-pointer" />
-                <IoMailUnreadOutline className="w-7 h-7 p-1 rounded-2xl text-emerald-600 bg-gray-200 hover:bg-emerald-600 hover:text-white cursor-pointer" />
+                {/* <FaWhatsapp className="w-7 h-7 p-1 rounded-2xl text-emerald-600 bg-gray-200 hover:bg-emerald-600 hover:text-white cursor-pointer" /> */}
+                <RiMessage2Line
+                  key={person.id}
+                  onClick={() => navigate(`/message/${person.id}`)}
+                  className="w-7 h-7 p-1 rounded-2xl text-emerald-600 bg-gray-200 hover:bg-emerald-600 hover:text-white cursor-pointer"
+                />
+                {/* <IoMailUnreadOutline className="w-7 h-7 p-1 rounded-2xl text-emerald-600 bg-gray-200 hover:bg-emerald-600 hover:text-white cursor-pointer" /> */}
               </div>
             </li>
           ))}

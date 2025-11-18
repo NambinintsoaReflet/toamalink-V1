@@ -106,11 +106,11 @@ export default function Discussion() {
       sendMessage();
     }
   };
-
-  // Affichage du nom de l'interlocuteur
-  const headerTitle = selectedUser
-    ? selectedUser.last_name || selectedUser.name || "Discussion"
-    : "Chargement...";
+console.log(selectedUser);
+// Affichage du nom de l'interlocuteur
+const headerTitle = selectedUser
+  ? selectedUser.first_name + " " + selectedUser.last_name || "Discussion"
+  : "Chargement...";
 
   return (
     <div className="min-h-full flex flex-col h-screen">
