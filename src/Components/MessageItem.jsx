@@ -1,4 +1,6 @@
-export default function MessageItem({ msg, userId }) {
+import React from "react";
+
+function MessageItem({ msg, userId }) {
   const isMine = msg.sender_id === userId;
 
   return (
@@ -11,3 +13,5 @@ export default function MessageItem({ msg, userId }) {
     </div>
   );
 }
+
+export default React.memo(MessageItem);

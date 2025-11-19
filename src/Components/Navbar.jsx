@@ -20,7 +20,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-2">
             <FaUserCircle className="text-2xl text-cyan-800" />
             <Menu as="div" className="relative inline-block">
-              <MenuButton className="inline-flex w-full justify-center gap-x-1.5 cursor-pointer rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1 inset-ring-gray-300 hover:bg-gray-50">
+              <MenuButton className="inline-flex w-full justify-center items-center gap-x-1.5 cursor-pointer rounded-md bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-xs outline-none">
                 <div className="text-gray-800 font-medium">{user}</div>
                 <ChevronDownIcon
                   aria-hidden="true"

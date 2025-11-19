@@ -12,12 +12,13 @@ const Layout = () => {
   return (
     <>
       <Navbar />
-      <div className="h-[76vh]  overflow-hidden mt-14 lg:min-h-[90vh] mb-2">
+      <div className="h-[76vh] overflow-hidden mt-15 lg:min-h-[88vh] p-2 mb-2 ">
         <div className="h-full flex justify-center lg:justify-start lg:mt-2">
+        
           <aside
-            className={`bg-white mt-1 overflow-hidden  hidden transition-all duration-200 h-screen w-80 p-4 ${
+            className={`bg-white mt-1 overflow-hidden z-100 p-2 hidden transition-all duration-200 h-screen w-80 ${
               open ? "block" : "hidden"
-            } lg:block fixed lg:p-4`}
+            } lg:block fixed `}
           >
             <ul>
               {NavWeb.map(({ href, label, icon, nb }) => (
@@ -46,12 +47,14 @@ const Layout = () => {
             </ul>
           </aside>
 
-          <div className="bg-white pt-2 lg:ml-80 w-200 no-scrollbar overflow-y-scroll h-auto lg:mt-1">
+          <div className="bg-white lg:ml-80 w-200 mt-1 no-scrollbar overflow-y-scroll h-auto lg:mt-1">
             <Outlet />
+            {/* block 2 */}
           </div>
 
-          <div className="bg-gray-100 p-4 no-scrollbar overflow-y-scroll w-100 h-full hidden lg:block">
+          <div className="bg-white mt-1 no-scrollbar overflow-y-scroll w-100 h-full hidden lg:block">
             <PersonList />
+    
           </div>
         </div>
       </div>

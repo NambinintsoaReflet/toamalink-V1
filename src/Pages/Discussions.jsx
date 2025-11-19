@@ -180,7 +180,7 @@ export default function Discussion() {
         </span>
       </div>
 
-      <div className="p-4 flex-1 pt-[80px] overflow-y-auto space-y-3 bg-gray-50">
+      <div className="p-4 flex-1 pt-[100px] overflow-y-auto outer-wrapper space-y-3 bg-gray-50">
         {messages.map((msg, i) => (
           <MessageItem key={i} msg={msg} userId={userId} />
         ))}
@@ -195,13 +195,13 @@ export default function Discussion() {
           onKeyDown={handleKeyPress}
           placeholder="Écrire un message..."
           className="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
-          // disabled={!selectedUser}
+          disabled={!selectedUser}
         />
 
         <button
           onClick={sendMessage}
           className="p-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition disabled:opacity-50"
-          // disabled={!text.trim() || !selectedUser}
+          disabled={!text.trim() || !selectedUser}
         >
           <CiPaperplane className="text-xl" />
         </button>

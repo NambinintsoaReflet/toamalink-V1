@@ -18,7 +18,7 @@ const EventCard = ({ event, currentUserId }) => {
   );
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 mb-4 w-full max-w-2xl">
+    <div className="bg-white shadow-md rounded-sx p-4 mb-4 w-full max-w-2xl">
       <div className="flex justify-between items-center mb-2">
         <div className="flex items-center">
           <FaUser className="rounded-full mr-2 w-5 h-5" />
@@ -38,7 +38,7 @@ const EventCard = ({ event, currentUserId }) => {
       )}
 
       {event?.contenu && (
-        <p className="text-gray-800 mb-2 whitespace-pre-wrap">
+        <p className="text-gray-800 text-sm mb-2 whitespace-pre-wrap">
           {event.contenu}
         </p>
       )}
